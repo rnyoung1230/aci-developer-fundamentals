@@ -60,7 +60,7 @@ print(my_string.lower())
 
 my_string = " Hello, World! "
 print(my_string)
-print(my_string.strip()) # removes white space from beginnig and end of string
+print(my_string.strip()) # removes white space from beginning and end of string
 
 my_string = "Hello, World!"
 print(my_string.replace("Hello", "Hi"))
@@ -90,7 +90,7 @@ city = "Verona"
 userinfo = 'My name is {}. I’m {} years old. My zip code is {}. My city is {}.'
 print(userinfo.format(name, age, zipcode, city))
 
-# Excape characters
+# Escape characters
 string= "He said, \"Hello\"."
 print(string)
 
