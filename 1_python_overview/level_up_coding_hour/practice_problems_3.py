@@ -11,9 +11,10 @@ Red Rain Can Happen. Fog Is Just A Low Cloud. Thundersnow: A Snowstorm With Thun
 paragraph = "About 40 Million Lightning Strikes Happen In The United States Each Year. The Coldest Place on Earth Is At The Antartic Plateau In Antartica. Clouds Are Not Made Of Gas. Red Rain Can Happen. Fog Is Just A Low Cloud. Thundersnow: A Snowstorm With Thunder."
 print(paragraph)
 
-step = 4 # retrieve every x Letter (is this the same as character?)
+step = 4 # retrieve every xth Letter in a given string (does letter = character?)
 start_index = step - 1
 stop_index = len(paragraph)
 
 output = paragraph[start_index:stop_index:step]
 print(output)
+print(paragraph[stop_index-4::-4]) # Prints every 4th character going in reverse
