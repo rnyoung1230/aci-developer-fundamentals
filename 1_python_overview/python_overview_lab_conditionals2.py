@@ -27,7 +27,7 @@ rowE = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 while seatAvailable:
     fav_number = int(input("Enter a number between 1 and 50\n>"))
-    if 1 < fav_number < 50:
+    if 1 <= fav_number <= 50:
         #print(fav_number)
         if rowA.count(fav_number) > 0:
             print(f"Thank you! You will be in seat {fav_number}, which is in row A.")
