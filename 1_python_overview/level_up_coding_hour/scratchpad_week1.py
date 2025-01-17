@@ -1,4 +1,4 @@
-print("Hello World!")
+print("Level Up Coding Hour: Week 1")
 
 # Task 1
 first_name = input("What is your first name?\n>")
