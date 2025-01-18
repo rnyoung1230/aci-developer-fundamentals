@@ -45,15 +45,15 @@ num_pushups_increase = int(input("How many push-ups will you increase by each da
 daily_pushup_count = 0
 total_pushup_count = 0
 
-for i in range(1, num_days_to_track + 1):
-    if i == 1:
-        print(message1.format(i,num_pushups_day1))
-        total_pushup_count += num_pushups_day1
-        daily_pushup_count = num_pushups_day1 + num_pushups_increase
+for day in range(1, num_days_to_track + 1):
+    if day == 1:
+        daily_pushup_count = num_pushups_day1
+        print(message1.format(day,daily_pushup_count))
     else:
-        print(message1.format(i, daily_pushup_count))
-        total_pushup_count += daily_pushup_count
         daily_pushup_count += num_pushups_increase
+        print(message1.format(day, daily_pushup_count))
+
+    total_pushup_count += daily_pushup_count
 
 print(message2.format(num_days_to_track, total_pushup_count))
 
