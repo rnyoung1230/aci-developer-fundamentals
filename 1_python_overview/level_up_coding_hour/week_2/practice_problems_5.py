@@ -10,6 +10,8 @@ Using a while loop, print all even numbers within the range 20 to 80, inclusive 
 for number in range(20, 81):
     if number % 2 == 0:
         print(number)
+    else:
+        continue
         
 # END PROGRAM
 # Say good-bye
