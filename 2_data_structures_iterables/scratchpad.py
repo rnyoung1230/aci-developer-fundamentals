@@ -35,15 +35,21 @@
 # print (inv_with_dups)
 
 # Accessing items in a Dictionary
-inventory = {
-    "apples": 5,
-    "bananas": 4,
-    "coconuts": 2,
-    "dates": 10
-}
+# inventory = {
+#     "apples": 5,
+#     "bananas": 4,
+#     "coconuts": 2,
+#     "dates": 10
+# }
+#
+# num_dates = inventory["dates"]
+#
+# num_apples = inventory["apples"]
+#
+# print (f"There are {num_dates} dates and {num_apples} apples in the inventory.")
 
-num_dates = inventory["dates"]
+# Tuples
+new_tuple = ("zero", "one", "two", "three", "four")
 
-num_apples = inventory["apples"]
-
-print (f"There are {num_dates} dates and {num_apples} apples in the inventory.")
+print(new_tuple[0])
+print(new_tuple[-1])
