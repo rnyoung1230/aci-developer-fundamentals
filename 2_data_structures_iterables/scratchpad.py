@@ -17,19 +17,33 @@
 # print(my_list[1:3])
 
 # Dictionary examples
+# inventory = {
+#     "apples": 5,
+#     "bananas": 4,
+#     "coconuts": 2
+# }
+#
+# print (inventory)
+#
+# inv_with_dups = {
+#     "apples": 5,
+#     "bananas": 4,
+#     "coconuts": 2,
+#     "apples": 1
+# }
+#
+# print (inv_with_dups)
+
+# Accessing items in a Dictionary
 inventory = {
     "apples": 5,
     "bananas": 4,
-    "coconuts": 2
-}
-
-print (inventory)
-
-inv_with_dups = {
-    "apples": 5,
-    "bananas": 4,
     "coconuts": 2,
-    "apples": 1
+    "dates": 10
 }
 
-print (inv_with_dups)
+num_dates = inventory["dates"]
+
+num_apples = inventory["apples"]
+
+print (f"There are {num_dates} dates and {num_apples} apples in the inventory.")
