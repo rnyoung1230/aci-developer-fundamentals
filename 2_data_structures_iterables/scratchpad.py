@@ -49,7 +49,13 @@
 # print (f"There are {num_dates} dates and {num_apples} apples in the inventory.")
 
 # Tuples
-new_tuple = ("zero", "one", "two", "three", "four")
+# new_tuple = ("zero", "one", "two", "three", "four")
+#
+# print(new_tuple[0])
+# print(new_tuple[-1])
 
-print(new_tuple[0])
-print(new_tuple[-1])
+names = ["Alejandro", "Ana", "carlos", "john", "Jane", "Paulo"]
+
+for name in names:
+    name = name.title()
+    print (f"Hello, {name}!")
