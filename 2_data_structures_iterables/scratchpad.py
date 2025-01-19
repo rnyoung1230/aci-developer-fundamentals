@@ -56,6 +56,5 @@
 
 names = ["Alejandro", "Ana", "carlos", "john", "Jane", "Paulo"]
 
-for name in names:
-    name = name.title()
-    print (f"Hello, {name}!")
+for i in range(len(names)):
+    print (f"{names[i]} is at position {i}")
