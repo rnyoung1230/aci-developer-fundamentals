@@ -53,8 +53,25 @@
 #
 # print(new_tuple[0])
 # print(new_tuple[-1])
+#
+# names = ["Alejandro", "Ana", "carlos", "john", "Jane", "Paulo"]
+#
+# for i in range(len(names)):
+#     print (f"{names[i]} is at position {i}")
 
-names = ["Alejandro", "Ana", "carlos", "john", "Jane", "Paulo"]
+sales_wk1 = {
+    "Monday": 10,
+    "Tuesday": 10,
+    "Wednesday": 5,
+    "Thursday": 5,
+    "Friday": 15,
+    "Saturday": 20,
+    "Sunday": 15
+}
 
-for i in range(len(names)):
-    print (f"{names[i]} is at position {i}")
+total_sales = 0
+
+for k in sales_wk1:
+    total_sales += sales_wk1[k]
+
+print (total_sales)
