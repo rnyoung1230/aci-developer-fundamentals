@@ -47,8 +47,8 @@ y = input("Please enter another value.\n>")
 print(f"Variable y has a value of \"{y}\".")
 
 print("Let's perform a swap...")
-temp_varible = x
+temp_variable = x
 x = y
-y = temp_varible
+y = temp_variable
 print(f"Variable x now has a value of \"{x}\".")
 print(f"Variable y now has a value of \"{y}\".")
