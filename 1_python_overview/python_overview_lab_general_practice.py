@@ -8,7 +8,7 @@ and print the radius of the circle using string formatting.
 Take radius as user input and calculate the area, and print the radius of the circle using string formatting.
 '''
 radius = input("What is the radius you'd like to use?\n>")
-radius = int(radius)
+radius = float(radius)
 pi = 3.14
 area_of_circle = pi * (radius * radius)
 message1 = "The radius of the circle is {}."
@@ -22,7 +22,7 @@ print("")
 '''
 Get user input for a temperature in Farenheit. Now convert this value to Celsius using the formula: C = (F − 32) × 5/9
 '''
-temperature_F = int(input("What is the temperature in Farenheit?\n>"))
+temperature_F = float(input("What is the temperature in Farenheit?\n>"))
 temperature_C = (temperature_F - 32) * 5/9
 print(f"The temperature in Farenheit is {temperature_F}.")
 print(f"The temperature in Celsius is {temperature_C}.")
