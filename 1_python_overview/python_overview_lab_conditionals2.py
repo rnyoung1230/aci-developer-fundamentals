@@ -6,15 +6,10 @@ Write a program to allocate an auditorium seating row for the user based on thei
 - If the user enters anything that is above 50 or below 0, the program should tell them that it is an invalid input.
 
 Fav_number ---- Row
-
 1 - 10 ----- E
-
 11 - 20 ----- D
-
 21 – 30 ----- C
-
 31 – 40 ------ B
-
 41 - 50 ------ A
 '''
 

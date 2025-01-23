@@ -125,15 +125,26 @@
 # print("pets after clear() is", pets)
 
 # sort alphanumeric string
-my_list = ["car", "boat", "Truck", "1", "Car", "-1", "ZZ_Top", "b00m", "T3p"]
-my_list.sort()
-print("Mixed case alphanumeric sort:", my_list)
+# my_list = ["car", "boat", "Truck", "1", "Car", "-1", "ZZ_Top", "b00m", "T3p"]
+# my_list.sort()
+# print("Mixed case alphanumeric sort:", my_list)
+#
+# # sort with optional reverse argument
+# my_list.sort(reverse=True)
+# print("Sort with optional reverse argument:", my_list)
+#
+# # sort using reverse method
+# groceries = ["apples", "berries", "cabbage"]
+# groceries.reverse()
+# print("groceries after reverse()", groceries)
 
-# sort with optional reverse argument
-my_list.sort(reverse=True)
-print("Sort with optional reverse argument:", my_list)
-
-# sort using reverse method
-groceries = ["apples", "berries", "cabbage"]
-groceries.reverse()
-print("groceries after reverse()", groceries)
+# Tripe quotes used within a variable assignment allow you to break lines
+# ''' = doc string
+message = '''
+This is a multi line string.
+It is cool to use and avoid having to 
+scroll across the screen to read everything.
+'''
+print(message)
+temp = list(message.split())
+print(temp)
