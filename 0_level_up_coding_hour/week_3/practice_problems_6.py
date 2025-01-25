@@ -29,6 +29,11 @@ word_frequency = {
     "that": 13
 }
 print(word_frequency)
+for word,frequency in word_frequency.items():
+    if frequency >= 20:
+        print(word)
+    else:
+        continue
 
 
 
