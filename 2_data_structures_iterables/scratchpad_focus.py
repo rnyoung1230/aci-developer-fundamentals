@@ -1,3 +1,6 @@
+# FOCUS SESSION - 1/23
+# --------------------
+
 # Basic list example
 # house_pets = ["dog", "cat", "hamster", "bird"]
 #
@@ -140,11 +143,89 @@
 
 # Tripe quotes used within a variable assignment allow you to break lines
 # ''' = doc string
-message = '''
-This is a multi line string.
-It is cool to use and avoid having to 
-scroll across the screen to read everything.
-'''
-print(message)
-temp = list(message.split())
-print(temp)
+# message = '''
+# This is a multi line string.
+# It is cool to use and avoid having to
+# scroll across the screen to read everything.
+# '''
+# print(message)
+# temp = list(message.split())
+# print(temp)
+
+# Dictionary practice
+# dict = {} # empty curly braces ALWAYS equate to a Dictionary (not a Set)
+# names_ages = {"Tim" : 20, "Sally": 34, "Mike": 55} # names and ages
+# print(names_ages)
+# names_ages["Tim"] += 5
+# print(names_ages)
+#
+# # del keyword is ONE way to remove a key-value pair from a dict
+# del names_ages["Tim"]
+# print(names_ages)
+
+# Create a dictionary with fruit names as keys and color as their values
+# fruits = {
+#     "Banana": "Yellow",
+#     "Apple": "Red",
+#     "Pear": "Green",
+#     "Lime": "Green",
+#     "Lemon": "Yellow",
+#     "Blueberry": "Blue",
+#     "Orange": "Orange"
+# }
+# print(fruits)
+#
+# # Create a dictionary with 3 countries and their capitals
+# countries_cap = {
+#     "USA": "Washington D.C.",
+#     "France": "Paris",
+#     "Mexico": "Mexico City"
+# }
+# print(countries_cap)
+
+# Looping through iterables
+#Lists
+# fruits = ["apples", "pears", "bananas", "blueberries", "limes"]
+# for fruit in fruits:
+#     print(fruit)
+#
+# print("------------------------")
+#
+# for i, v in enumerate(fruits): # enumerate provides easy way of getting the index and value from a list
+#     print(i, v)
+#
+# for index in range(len(fruits)):
+#     print(index + 1, fruits[index])
+
+# numbers = [1, 2, 3, 4, 2, 3, 6, 7, 3, 1, 9]
+# print(len(numbers))
+# print(numbers)
+#
+# numbers_set = set(numbers) # casting a list to a set automatically removes any duplicates
+# print(len(numbers_set))
+# print(numbers_set)
+
+# Create a dictionary with fruit names as keys and quantity as their values
+fruits = {
+    "Banana": 5,
+    "Apple": 13,
+    "Pear": 4,
+    "Lime": 2,
+    "Lemon": 2,
+    "Blueberry": 50,
+    "Orange": 6
+}
+#print(fruits)
+
+for i, v in enumerate(fruits): # gives you the index for each key
+    print(i, v)
+
+print("------------------------")
+
+for k in fruits:
+    print(k, fruits[k]) # gives you each key and its value
+
+print("------------------------")
+
+for k, v in fruits.items(): # gives you each key and its value using iterable method
+    print(k, v)
