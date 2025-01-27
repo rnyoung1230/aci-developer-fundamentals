@@ -206,26 +206,43 @@
 # print(numbers_set)
 
 # Create a dictionary with fruit names as keys and quantity as their values
-fruits = {
-    "Banana": 5,
-    "Apple": 13,
-    "Pear": 4,
-    "Lime": 2,
-    "Lemon": 2,
-    "Blueberry": 50,
-    "Orange": 6
-}
-#print(fruits)
+# fruits = {
+#     "Banana": 5,
+#     "Apple": 13,
+#     "Pear": 4,
+#     "Lime": 2,
+#     "Lemon": 2,
+#     "Blueberry": 50,
+#     "Orange": 6
+# }
+# #print(fruits)
+#
+# for i, v in enumerate(fruits): # gives you the index for each key
+#     print(i, v)
+#
+# print("------------------------")
+#
+# for k in fruits:
+#     print(k, fruits[k]) # gives you each key and its value
+#
+# print("------------------------")
+#
+# for k, v in fruits.items(): # gives you each key and its value using iterable method
+#     print(k, v)
 
-for i, v in enumerate(fruits): # gives you the index for each key
-    print(i, v)
+# List methods
+pets = ["dog", "cat", "hamster", "iguana", "goldfish"]
 
-print("------------------------")
+# remove
+pets.remove("hamster")
 
-for k in fruits:
-    print(k, fruits[k]) # gives you each key and its value
+print ("pets after remove('hamster') is", pets)
 
-print("------------------------")
+pets.remove(pets[0])
 
-for k, v in fruits.items(): # gives you each key and its value using iterable method
-    print(k, v)
+print ("pets after remove(pets[0]) is", pets)
+
+# clear
+pets.clear()
+
+print("pets after clear() is", pets)
