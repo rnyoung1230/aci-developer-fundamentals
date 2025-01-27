@@ -5,11 +5,29 @@
 #
 # print (my_set)
 
-setA = {"Python", "JavaScript", "PHP"}
-setB = {"Python", "JavaScript", "Java", "C++"}
+# setA = {"Python", "JavaScript", "PHP"}
+# setB = {"Python", "JavaScript", "Java", "C++"}
+#
+# #setB.update(setA)
+# setA.update(setB)
+#
+# print (f"Set A: {setA}")
+# print (f"Set B: {setB}")
 
-#setB.update(setA)
-setA.update(setB)
+# insects = {"ant", "bee", "cricket", "dragonfly"}
+#
+# # discard()
+# insects.discard("ant")
+# print ('After discard("ant"), the insects sets is:', insects)
+#
+# # remove()
+# # remove raises an error if the specified element is not in the set
+# insects.remove("ant")  #change ant to some other set value and rerun
+# print("After remove(), the insects set includes:", insects)
 
-print (f"Set A: {setA}")
-print (f"Set B: {setB}")
+insects = {"ant", "bee", "cricket", "dragonfly"}
+
+# pop removes a random element and returns that value
+removed_item = insects.pop()
+print ("The removed element is", removed_item)
+print ("The remaining set includes", insects)
