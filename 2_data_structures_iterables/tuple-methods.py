@@ -53,11 +53,11 @@ Print the combined tuple.
 '''
 print("------------ TASK 4 ------------")
 
-print(f"Tuple1: {tuple1}")
-print(f"Tuple2: {tuple2}")
+print("Tuple1:", tuple1)
+print("Tuple2:", tuple2)
 
 combo_tuple = tuple1 + tuple2
-print(f"Combo tuple: {combo_tuple}")
+print("Combo tuple:", combo_tuple)
 
 print("")
 
@@ -68,9 +68,9 @@ Print the repeated tuple.
 '''
 print("------------ TASK 5 ------------")
 
-print(f"Tuple1: {tuple1}")
+print("Tuple1:", tuple1)
 
 repeat_tuple = tuple1 * 3
-print(f"Repeat tuple: {repeat_tuple}")
+print("Repeat tuple:", repeat_tuple)
 
 print("")
