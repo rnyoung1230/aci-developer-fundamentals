@@ -22,7 +22,8 @@ list_friends = [friend_one, friend_two, friend_three, friend_four]
 Create a main "birthday_party" dictionary that includes:
    - Basic party info: "host", "date", "time" and an "address"
    - An "activities" list with at least three planned activities - games, music, decorate your own cupcakes
-   - A "menu" dictionary with keys for "main_course", "sides", "desserts", and "drinks", each containing a list of items
+   - A "menu" dictionary with keys for "main_course", "sides", "desserts", and "drinks", 
+   each containing a list of items
 '''
 
 birthday_party = {
@@ -54,5 +55,7 @@ for each_friend in list_friends:
     print("\nHere are the activities for the party: ")
     for activity in birthday_party['activities']:
         print(activity)
+
+    print("-------------------------------------------------\n")
     
 
