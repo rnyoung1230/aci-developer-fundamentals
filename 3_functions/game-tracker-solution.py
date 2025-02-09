@@ -16,7 +16,7 @@ def update_high_score():
 
 def record_player_stats(player_name, **stats):
     cleaned_stats = {
-        key: abs(value) for key, value in stats.items()
+        key: abs(value) for key, value in stats.items() # DICTIONARY COMPREHENSION
     }
     player_stats[player_name] = cleaned_stats
 
