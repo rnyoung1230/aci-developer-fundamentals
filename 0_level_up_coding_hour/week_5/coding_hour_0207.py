@@ -35,10 +35,14 @@ def sort(*students):
 # print("---------------------------------------------")
 
 # TASK 3
-def create_dict(list_a, list_b):
-    new_dict = {
-        list_a[x] : list_b[x] for x in range(len(list_a)) # Dictionary comprehension
-    }
+def create_dict(keyes, values):
+    if len(keyes) == len(values):
+        new_dict = {
+            keyes[x] : values[x] for x in range(len(keyes)) # Dictionary comprehension
+        }
+    else:
+        new_dict = {}
+
     return new_dict
 
 # Test
