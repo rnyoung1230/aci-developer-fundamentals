@@ -42,12 +42,18 @@ class Superhero:
         print(f"{self.name}'s energy level is now {self.energy_level}.")
 
     def change_costume(self):
-        if self.is_disguised == True:
+        if self.is_disguised:
             self.is_disguised = False
             print(f"{self.name} changed into their superhero outfit!")
         else:
             self.is_disguised = True
             print(f"{self.name} is back in their civilian clothes.")
+
+    def team_up(self, partner_name):
+        if self.name != partner_name:
+            print(f"{self.name} is teaming up with {partner_name}. Let's go!")
+        else:
+            print(f"{self.name} cannot team up with themself.")
 
 ################################# CREATING INSTANCES ############################################
 
@@ -64,3 +70,5 @@ print("---------------------------------------------------------")
 
 hulk = Superhero("Hulk", "strength", "green")
 hulk.print_info()
+hulk.team_up("Superman")
+hulk.team_up("Hulk")
