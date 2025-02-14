@@ -27,6 +27,8 @@ class Dice:
 if __name__ == '__main__':
     dice = [Dice(), Dice(), Dice(), Dice(), Dice()]
 
-    for die in dice:
-        print(die)
+    # for i in range(len(dice)):
+    #     print(f"{i}: {dice[i]}")
 
+    for index, die in enumerate(dice):
+        print(f"{index}: {die}")
