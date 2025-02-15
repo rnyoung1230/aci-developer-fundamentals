@@ -21,6 +21,14 @@ class Bank:
     def close_account(account_num):
         Bank.accounts.pop(account_num)
 
+    @staticmethod
+    def assign_account_number():
+        acct_num = random.randint(1000001, 9999999)
+        # If account number already in use, find another
+        while acct_num in Bank.accounts:
+            acct_num = random.randint(1000001, 9999999)
+        return acct_num
+
 class BankAccount:
     # class variables and methods
     minimum_balance = 100
@@ -29,18 +37,9 @@ class BankAccount:
     def format_currency(amount):
         return '${:,.2f}'.format(amount)
 
-    @staticmethod
-    def assign_account_number():
-        return str(random.randint(1000001, 9999999))
-
     # instance variables and methods
     def __init__(self, account_type="Savings", opening_balance=minimum_balance):
-        self.account_number = BankAccount.assign_account_number()
-
-        # If account number already in use, find another
-        while self.account_number in Bank.accounts:
-            self.account_number = BankAccount.assign_account_number()
-
+        self.account_number = Bank.assign_account_number()
         self.account_type = account_type
         self.account_balance = opening_balance
 
