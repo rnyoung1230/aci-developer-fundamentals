@@ -1,4 +1,4 @@
-import datetime
+# Banking System
 import random
 from datetime import date
 
@@ -15,15 +15,15 @@ class Bank:
         "type": "Savings",
         "balance": 0,
         "transactions" : [
-            {"0" : {
+            {   "transaction_id": 0,
                 "type" : "Deposit",
                 "amount" : 250,
-                "date" : "2025-02-15"}
+                "date" : "02-15-2025"
             },
-            {"1": {
+            {   "transaction_id": 1,
                 "type": "Withdrawal",
                 "amount": 100,
-                "date": "2025-02-16"}
+                "date": "02-16-2025"
             }
         ]
         }
@@ -48,6 +48,22 @@ class Bank:
             acct_num = random.randint(1000001, 9999999)
         return acct_num
 
+    @staticmethod
+    def update_account_info(bank_account, bank_transaction):
+        if bank_transaction.transaction_type == "Deposit":
+            Bank.accounts[bank_account]["balance"] += bank_transaction.transaction_amount
+        else:
+            Bank.accounts[bank_account]["balance"] -= bank_transaction.transaction_amount
+
+        transaction = {
+            "transaction_id": bank_transaction.transaction_id,
+            "type": bank_transaction.transaction_type,
+            "amount": bank_transaction.transaction_amount,
+            "date": bank_transaction.transaction_date
+        }
+
+        Bank.accounts[bank_account]["transactions"] = transaction
+
 class BankAccount:
     # class variables and methods
     minimum_balance = 100
@@ -67,12 +83,14 @@ class BankAccount:
 
     def make_deposit(self, amount):
         self.account_balance += amount
-        Bank.accounts[self.account_number]["balance"] += amount
+        new_transaction = BankTransaction("Deposit", amount)
+        Bank.update_account_info(self.account_number, new_transaction)
 
     def make_withdrawal(self, amount):
         if self.account_balance - amount >= BankAccount.minimum_balance:
             self.account_balance -= amount
-            Bank.accounts[self.account_number]["balance"] -= amount
+            new_transaction = BankTransaction("Withdrawal", amount)
+            Bank.update_account_info(self.account_number, new_transaction)
         else:
             print(f"Insufficient funds. Withdrawal amount ({Currency.format_currency(amount)}) will cause your "
                   f"account balance ({Currency.format_currency(self.account_balance)}) "
@@ -88,7 +106,10 @@ class BankTransaction:
         self.transaction_id = BankTransaction.transaction_id
         self.transaction_type = transaction_type
         self.transaction_amount = transaction_amount
-        self.transaction_date = date.today()
+
+        today = date.today()
+        formatted_date = today.strftime("%m-%d-%Y")
+        self.transaction_date = formatted_date
 
     def __str__(self):
         return f"BANK TRANSACTION SUMMARY\n" \
@@ -128,5 +149,5 @@ print(Bank.accounts)
 print("----------------------------------------------------------------------")
 
 ################################## BANK TRANSACTION ##################################
-new_transaction = BankTransaction("Withdrawal", 500)
-print(new_transaction)
+#new_transaction = BankTransaction("Withdrawal", 500)
+#print(new_transaction)
