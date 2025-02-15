@@ -49,7 +49,7 @@ class Bank:
         Bank.accounts.pop(account_num)
 
     @staticmethod
-    def update_accounts(bank_account, bank_transaction):
+    def record_account_transaction(bank_account, bank_transaction):
         if bank_transaction.transaction_type == "Deposit":
             Bank.accounts[bank_account]["balance"] += bank_transaction.transaction_amount
         else:
@@ -84,13 +84,13 @@ class BankAccount:
     def make_deposit(self, amount):
         self.account_balance += amount
         new_transaction = BankTransaction("Deposit", amount)
-        Bank.update_accounts(self.account_number, new_transaction)
+        Bank.record_account_transaction(self.account_number, new_transaction)
 
     def make_withdrawal(self, amount):
         if self.account_balance - amount >= BankAccount.minimum_balance:
             self.account_balance -= amount
             new_transaction = BankTransaction("Withdrawal", amount)
-            Bank.update_accounts(self.account_number, new_transaction)
+            Bank.record_account_transaction(self.account_number, new_transaction)
         else:
             print(f"Insufficient funds. Withdrawal amount ({Currency.format_currency(amount)}) will cause your "
                   f"account balance ({Currency.format_currency(self.account_balance)}) "
