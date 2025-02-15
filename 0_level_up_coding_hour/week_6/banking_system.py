@@ -41,7 +41,7 @@ class Bank:
     def open_account(account_type, opening_balance):
         new_account = BankAccount(account_type, opening_balance)
         Bank.accounts[new_account.account_number] = \
-            {"type": new_account.account_type, "balance": new_account.account_balance}
+            {"type": new_account.account_type, "balance": new_account.account_balance, "transactions": []}
         return new_account
 
     @staticmethod
@@ -62,7 +62,7 @@ class Bank:
             "date": bank_transaction.transaction_date
         }
 
-        Bank.accounts[bank_account]["transactions"] = transaction
+        Bank.accounts[bank_account]["transactions"].append(transaction)
 
 class BankAccount:
     # class variables and methods
@@ -98,7 +98,7 @@ class BankAccount:
 
 class BankTransaction:
     # class variables and methods
-    transaction_id = 0
+    transaction_id = 1
 
     # instance variables and methods
     def __init__(self, transaction_type="Deposit", transaction_amount=None):
@@ -148,6 +148,13 @@ for account_number in account_numbers:
 print(Bank.accounts)
 print("----------------------------------------------------------------------")
 
-################################## BANK TRANSACTION ##################################
-#new_transaction = BankTransaction("Withdrawal", 500)
-#print(new_transaction)
+################################## TEST BANK TRANSACTION ##################################
+# print("1000000", Bank.accounts["1000000"]["transactions"])
+# new_tx = {'transaction_id': 5, 'type': 'Deposit', 'amount': 999, 'date': '02-11-2025'}
+# Bank.accounts["1000000"]["transactions"].append(new_tx)
+# print("1000000", Bank.accounts["1000000"]["transactions"])
+# new_checking_account = Bank.open_account(account_type="Checking", opening_balance=250)
+# new_checking_account.make_deposit(random.randint(500, 1000))
+# print(new_checking_account.account_number, Bank.accounts[new_checking_account.account_number])
+# new_checking_account.make_withdrawal(random.randint(100, 1000))
+# print(new_checking_account.account_number, Bank.accounts[new_checking_account.account_number])
