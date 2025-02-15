@@ -82,7 +82,7 @@ for i in range(10):
 created_accounts_set = set(Bank.accounts)
 print(f"Set length: {len(created_accounts_set)}, List length: {len(Bank.accounts)}")
 print(Bank.accounts)
-print("---------------------------------------------------------------------")
+print("----------------------------------------------------------------------")
 
 # Find any accounts where the balance is ABOVE $750 and close them
 account_numbers = [x for x in Bank.accounts.keys() if Bank.accounts[x]["balance"] > 750] # list comprehension
