@@ -12,7 +12,7 @@ class Bank:
 
     @staticmethod
     def open_account(account_type, opening_balance):
-        new_account = BankAccount(account_type)
+        new_account = BankAccount(account_type, opening_balance)
         Bank.accounts[new_account.account_number] = \
             {"type": new_account.account_type, "balance": new_account.account_balance}
         return new_account
@@ -30,7 +30,7 @@ class BankAccount:
         return '${:,.2f}'.format(amount)
 
     @staticmethod
-    def assign_account_number(self):
+    def assign_account_number():
         return str(random.randint(1000001, 9999999))
 
     # instance variables and methods
