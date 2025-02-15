@@ -119,7 +119,7 @@ class BankTransaction:
                f"Date: {self.transaction_date}\n" \
                f"------------------------------------------"
 
-################################## TEST BANK ACCOUNT ##################################
+################################## TEST BANKING SYSTEM ##################################
 for i in range(10):
     new_checking_account = Bank.open_account(account_type="Checking", opening_balance=250)
     new_checking_account.make_deposit(random.randint(500, 1000))
