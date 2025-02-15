@@ -89,5 +89,6 @@ account_numbers = [x for x in Bank.accounts.keys() if Bank.accounts[x]["balance"
 for account_number in account_numbers:
     Bank.close_account(account_number)
     print(f"Account: {account_number} has been closed.")
+
 # Print an updated list of accounts...should be less after account closures
 print(Bank.accounts)
