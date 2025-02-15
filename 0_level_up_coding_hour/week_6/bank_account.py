@@ -35,11 +35,11 @@ class BankAccount:
 
     # instance variables and methods
     def __init__(self, account_type="Savings", opening_balance=minimum_balance):
-        self.account_number = self.assign_account_number()
+        self.account_number = BankAccount.assign_account_number()
 
         # If account number already in use, find another
         while self.account_number in Bank.accounts:
-            self.account_number = self.assign_account_number()
+            self.account_number = BankAccount.assign_account_number()
 
         self.account_type = account_type
         self.account_balance = opening_balance
