@@ -1,8 +1,3 @@
-# CODING HOUR - 02/14
-
-'''
-xxxxxxxx
-'''
 import random
 
 # created bank accounts
