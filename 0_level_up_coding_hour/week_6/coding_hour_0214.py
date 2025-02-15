@@ -27,19 +27,31 @@ class BankAccount:
         created_accounts[self.account_number] = {"type": self.account_type, "balance": self.account_balance}
 
     def __str__(self):
-        print(f"Bank Account Summary\n"
-              f"Account Number: {self.account_number}\n"
-              f"Type: {self.account_type}")
+        return f"BANK ACCOUNT SUMMARY\n"\
+               f"Account Number: {self.account_number}\n"\
+               f"Type: {self.account_type}\n"\
+               f"Balance: {self.format_currency(self.account_balance)}\n"\
+               f"------------------------------------------"
 
     def assign_account_number(self):
-        return str(random.randrange(1000001, 9999999))
+        return str(random.randint(1000001, 9999999))
+
+    def make_deposit(self, amount):
+        self.account_balance += amount
+
+    def format_currency(self, amount):
+        return '${:,.2f}'.format(amount)
 
 ################################## TEST BANK ACCOUNT CREATION ##################################
-for i in range(10):
+for i in range(5):
     new_checking_account = BankAccount("Checking")
+    new_checking_account.make_deposit(random.randint(100, 1000))
+    print(new_checking_account)
 
-for i in range(10):
+for i in range(5):
     new_savings_account = BankAccount()
+    new_savings_account.make_deposit(random.randint(100, 1000))
+    print(new_savings_account)
 
 print(created_accounts)
 created_accounts_set = set(created_accounts)
