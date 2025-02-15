@@ -133,8 +133,8 @@ for i in range(10):
     print(new_savings_account)
 
 # Confirm assign_account_number is working...list and set lengths should match
-created_accounts_set = set(Bank.accounts)
-print(f"Set length: {len(created_accounts_set)}, List length: {len(Bank.accounts)}")
+accounts_set = set(Bank.accounts)
+print(f"Set length: {len(accounts_set)}, List length: {len(Bank.accounts)}")
 print(Bank.accounts)
 print("----------------------------------------------------------------------")
 
