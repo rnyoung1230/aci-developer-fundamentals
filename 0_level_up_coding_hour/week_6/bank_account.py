@@ -78,13 +78,16 @@ for i in range(10):
     new_savings_account.make_withdrawal(random.randint(100, 1000))
     print(new_savings_account)
 
-print(Bank.accounts)
+# Confirm assign_account_number is working...list and set lengths should match
 created_accounts_set = set(Bank.accounts)
-print(len(created_accounts_set), len(Bank.accounts))
+print(f"Set length: {len(created_accounts_set)}, List length: {len(Bank.accounts)}")
+print(Bank.accounts)
+print("---------------------------------------------------------------------")
 
 # Find any accounts where the balance is ABOVE $750 and close them
 account_numbers = [x for x in Bank.accounts.keys() if Bank.accounts[x]["balance"] > 750] # list comprehension
 for account_number in account_numbers:
     Bank.close_account(account_number)
-
+    print(f"Account: {account_number} has been closed.")
+# Print an updated list of accounts...should be less after account closures
 print(Bank.accounts)
