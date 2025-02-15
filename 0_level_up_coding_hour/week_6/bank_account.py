@@ -1,13 +1,32 @@
+import datetime
 import random
+from datetime import date
+
+class Currency:
+
+    @staticmethod
+    def format_currency(amount):
+        return '${:,.2f}'.format(amount)
 
 class Bank:
-
     name = "ABC Bank"
 
     accounts = {"1000000": {
         "type": "Savings",
-        "balance": 0
-    }
+        "balance": 0,
+        "transactions" : [
+            {"0" : {
+                "type" : "Deposit",
+                "amount" : 250,
+                "date" : "2025-02-15"}
+            },
+            {"1": {
+                "type": "Withdrawal",
+                "amount": 100,
+                "date": "2025-02-16"}
+            }
+        ]
+        }
     }
 
     @staticmethod
@@ -33,10 +52,6 @@ class BankAccount:
     # class variables and methods
     minimum_balance = 100
 
-    @staticmethod
-    def format_currency(amount):
-        return '${:,.2f}'.format(amount)
-
     # instance variables and methods
     def __init__(self, account_type="Savings", opening_balance=minimum_balance):
         self.account_number = Bank.assign_account_number()
@@ -47,7 +62,7 @@ class BankAccount:
         return f"BANK ACCOUNT SUMMARY\n" \
                f"Account Number: {self.account_number}\n" \
                f"Type: {self.account_type}\n" \
-               f"Balance: {BankAccount.format_currency(self.account_balance)}\n" \
+               f"Balance: {Currency.format_currency(self.account_balance)}\n" \
                f"------------------------------------------"
 
     def make_deposit(self, amount):
@@ -59,12 +74,31 @@ class BankAccount:
             self.account_balance -= amount
             Bank.accounts[self.account_number]["balance"] -= amount
         else:
-            print(f"Insufficient funds. Withdrawal amount ({BankAccount.format_currency(amount)}) will cause your "
-                  f"account balance ({BankAccount.format_currency(self.account_balance)}) "
-                  f"to fall below the required minimum ({BankAccount.format_currency(BankAccount.minimum_balance)})")
+            print(f"Insufficient funds. Withdrawal amount ({Currency.format_currency(amount)}) will cause your "
+                  f"account balance ({Currency.format_currency(self.account_balance)}) "
+                  f"to fall below the required minimum ({Currency.format_currency(BankAccount.minimum_balance)})")
 
+class BankTransaction:
+    # class variables and methods
+    transaction_id = 0
 
-################################## TEST BANK ACCOUNT CREATION ##################################
+    # instance variables and methods
+    def __init__(self, transaction_type="Deposit", transaction_amount=None):
+        BankTransaction.transaction_id += 1
+        self.transaction_id = BankTransaction.transaction_id
+        self.transaction_type = transaction_type
+        self.transaction_amount = transaction_amount
+        self.transaction_date = date.today()
+
+    def __str__(self):
+        return f"BANK TRANSACTION SUMMARY\n" \
+               f"Id: {self.transaction_id}\n" \
+               f"Type: {self.transaction_type}\n" \
+               f"Amount: {Currency.format_currency(self.transaction_amount)}\n" \
+               f"Date: {self.transaction_date}\n" \
+               f"------------------------------------------"
+
+################################## TEST BANK ACCOUNT ##################################
 for i in range(10):
     new_checking_account = Bank.open_account(account_type="Checking", opening_balance=250)
     new_checking_account.make_deposit(random.randint(500, 1000))
@@ -91,3 +125,8 @@ for account_number in account_numbers:
 
 # Print an updated list of accounts...should be less after account closures
 print(Bank.accounts)
+print("----------------------------------------------------------------------")
+
+################################## BANK TRANSACTION ##################################
+new_transaction = BankTransaction("Withdrawal", 500)
+print(new_transaction)
