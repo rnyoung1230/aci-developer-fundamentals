@@ -30,6 +30,14 @@ class Bank:
     }
 
     @staticmethod
+    def assign_account_number():
+        acct_num = random.randint(1000001, 9999999)
+        # If account number already in use, find another
+        while acct_num in Bank.accounts:
+            acct_num = random.randint(1000001, 9999999)
+        return acct_num
+
+    @staticmethod
     def open_account(account_type, opening_balance):
         new_account = BankAccount(account_type, opening_balance)
         Bank.accounts[new_account.account_number] = \
@@ -41,15 +49,7 @@ class Bank:
         Bank.accounts.pop(account_num)
 
     @staticmethod
-    def assign_account_number():
-        acct_num = random.randint(1000001, 9999999)
-        # If account number already in use, find another
-        while acct_num in Bank.accounts:
-            acct_num = random.randint(1000001, 9999999)
-        return acct_num
-
-    @staticmethod
-    def update_account_info(bank_account, bank_transaction):
+    def update_accounts(bank_account, bank_transaction):
         if bank_transaction.transaction_type == "Deposit":
             Bank.accounts[bank_account]["balance"] += bank_transaction.transaction_amount
         else:
@@ -84,13 +84,13 @@ class BankAccount:
     def make_deposit(self, amount):
         self.account_balance += amount
         new_transaction = BankTransaction("Deposit", amount)
-        Bank.update_account_info(self.account_number, new_transaction)
+        Bank.update_accounts(self.account_number, new_transaction)
 
     def make_withdrawal(self, amount):
         if self.account_balance - amount >= BankAccount.minimum_balance:
             self.account_balance -= amount
             new_transaction = BankTransaction("Withdrawal", amount)
-            Bank.update_account_info(self.account_number, new_transaction)
+            Bank.update_accounts(self.account_number, new_transaction)
         else:
             print(f"Insufficient funds. Withdrawal amount ({Currency.format_currency(amount)}) will cause your "
                   f"account balance ({Currency.format_currency(self.account_balance)}) "
