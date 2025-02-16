@@ -60,7 +60,7 @@ class BankAccount:
 
     @staticmethod
     def open_account(account_type, opening_balance=minimum_balance):
-        # Find/Assign a unique number to this account for identification
+        # Find/Assign a unique number that identifies account
         account_num = Bank.assign_account_number()
 
         # Create a BankAccount object
