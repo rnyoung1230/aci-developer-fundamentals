@@ -18,14 +18,9 @@ class Bank:
         # If number already in use, find another
         while number in Bank.accounts:
             number = random.randint(1000000, 9999999)
-        return number
 
-    @staticmethod
-    def open_account(account_type, opening_balance):
-        account_num = Bank.assign_account_number()
-        Bank.accounts.append(account_num)
-        new_account = BankAccount(account_num, account_type, opening_balance)
-        return new_account
+        Bank.accounts.append(number)
+        return number
 
 class BankAccount:
     # class variables and methods
@@ -56,6 +51,18 @@ class BankAccount:
                f"{transaction_history_display}\n" \
                f"------------------------------------------"
 
+    @staticmethod
+    def open_account(account_type, opening_balance):
+        account_num = Bank.assign_account_number()
+        new_account = BankAccount(account_num, account_type, opening_balance)
+        return new_account
+
+    def close_account(self):
+        self.account_balance = 0
+        self.account_status = "Closed"
+        new_transaction = BankTransaction("Close Account", self.account_balance)
+        self.record_transaction(new_transaction)
+
     def make_deposit(self, amount):
         self.account_balance += amount
         new_transaction = BankTransaction("Deposit", amount)
@@ -70,13 +77,6 @@ class BankAccount:
             print(f"Insufficient funds for account number {self.account_number}. Withdrawal amount ({Currency.format_currency(amount)}) will cause your "
                   f"account balance ({Currency.format_currency(self.account_balance)}) "
                   f"to fall below the required minimum ({Currency.format_currency(BankAccount.minimum_balance)})\n")
-
-
-    def close_account(self):
-        self.account_balance = 0
-        self.account_status = "Closed"
-        new_transaction = BankTransaction("Close Account", self.account_balance)
-        self.record_transaction(new_transaction)
 
     def record_transaction(self, transaction):
         transaction_record = {
@@ -113,7 +113,7 @@ class BankTransaction:
 # Create a bunch of Checking and Savings accounts...execute deposit and withdrawal activities on each and then print a summary
 bank_accounts = []
 for i in range(10):
-    new_checking_account = Bank.open_account(account_type="Checking", opening_balance=250)
+    new_checking_account = BankAccount.open_account(account_type="Checking", opening_balance=250)
     new_checking_account.make_deposit(random.randint(500, 1000))
     new_checking_account.make_withdrawal(random.randint(100, 1000))
     # Arbitrarily pick some accounts to test the close method on
@@ -123,7 +123,7 @@ for i in range(10):
     #print(new_checking_account)
 
 for i in range(10):
-    new_savings_account = Bank.open_account(account_type="Savings", opening_balance=100)
+    new_savings_account = BankAccount.open_account(account_type="Savings", opening_balance=100)
     new_savings_account.make_deposit(random.randint(500, 1000))
     new_savings_account.make_withdrawal(random.randint(100, 1000))
     # Arbitrarily pick some accounts to test the close method on
