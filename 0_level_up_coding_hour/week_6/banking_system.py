@@ -82,7 +82,7 @@ class BankAccount:
         transaction_record = {
             "Transaction ID": transaction.transaction_id,
             "Date": transaction.transaction_date,
-            "Amount": transaction.transaction_amount,
+            "Amount": Currency.format_currency(transaction.transaction_amount),
             "Type": transaction.transaction_type
         }
 
