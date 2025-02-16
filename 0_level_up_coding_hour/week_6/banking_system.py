@@ -33,7 +33,7 @@ class BankAccount:
     minimum_balance = 100
 
     # instance variables and methods
-    def __init__(self, account_num=None, account_type="Savings", from_factory=False):
+    def __init__(self, account_num=None, account_type=None, from_factory=False):
         if from_factory:
             self.account_number = account_num
             self.account_type = account_type
@@ -79,19 +79,19 @@ class BankAccount:
     def close_account(self):
         self.account_status = "Closed"
         self.make_withdrawal(self.account_balance)
-        new_transaction = BankTransaction("Close Acct.")
-        self.record_transaction(new_transaction)
+        close_account_transaction = BankTransaction("Close Acct.")
+        self.record_transaction(close_account_transaction)
 
     def make_deposit(self, amount):
         self.account_balance += amount
-        new_transaction = BankTransaction("Deposit", amount)
-        self.record_transaction(new_transaction)
+        deposit_transaction = BankTransaction("Deposit", amount)
+        self.record_transaction(deposit_transaction)
 
     def make_withdrawal(self, amount):
         if self.account_balance - amount >= BankAccount.minimum_balance or self.account_status == "Closed":
             self.account_balance -= amount
-            new_transaction = BankTransaction("Withdrawal", amount)
-            self.record_transaction(new_transaction)
+            withdrawal_transaction = BankTransaction("Withdrawal", amount)
+            self.record_transaction(withdrawal_transaction)
         else:
             print(f"Insufficient funds for account number {self.account_number}. Withdrawal amount ({CurrencyUtils.format_currency(amount)}) will cause your "
                   f"account balance ({CurrencyUtils.format_currency(self.account_balance)}) "
@@ -113,7 +113,7 @@ class BankTransaction:
     transaction_id = 0
 
     # instance variables and methods
-    def __init__(self, transaction_type="Deposit", transaction_amount=0):
+    def __init__(self, transaction_type=None, transaction_amount=0):
         BankTransaction.transaction_id += 1
         self.transaction_id = BankTransaction.transaction_id
         self.transaction_type = transaction_type
