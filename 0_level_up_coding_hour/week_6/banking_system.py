@@ -67,7 +67,7 @@ class BankAccount:
             new_transaction = BankTransaction("Withdrawal", amount)
             self.record_transaction(new_transaction)
         else:
-            print(f"Insufficient funds. Withdrawal amount ({Currency.format_currency(amount)}) will cause your "
+            print(f"Insufficient funds for account number {self.account_number}. Withdrawal amount ({Currency.format_currency(amount)}) will cause your "
                   f"account balance ({Currency.format_currency(self.account_balance)}) "
                   f"to fall below the required minimum ({Currency.format_currency(BankAccount.minimum_balance)})\n")
 
