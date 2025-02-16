@@ -41,7 +41,7 @@ class BankAccount:
             self.account_balance = opening_balance
             self.transaction_history = []
 
-            new_transaction = BankTransaction("Open Account", opening_balance)
+            new_transaction = BankTransaction("Open Acct.", opening_balance)
             self.record_transaction(new_transaction)
         else:
             print("Cannot instantiate directly...use the BankAccount.open_account() method.")
@@ -49,12 +49,13 @@ class BankAccount:
     def __str__(self):
         transaction_history_display = ""
         for record in self.transaction_history:
-            transaction_history_display += ' '.join(f'{k}: {v}' for k, v in record.items()) + '\n'
+            transaction_history_display += ' '.join(f'{k}: {str(v).ljust(12, " ")}'
+                                                    for k, v in record.items()) + '\n'
 
         return f"\nBANK ACCOUNT SUMMARY\n" \
-               f"Account Number: {self.account_number}\n" \
+               f"Acct. Number: {self.account_number}\n" \
                f"Type: {self.account_type}\n" \
-               f"Account Status: {self.account_status}\n" \
+               f"Status: {self.account_status}\n" \
                f"Balance: {CurrencyUtils.format_currency(self.account_balance)}\n" \
                f"\nTRANSACTION HISTORY\n" \
                f"{transaction_history_display}\n" \
@@ -69,7 +70,7 @@ class BankAccount:
     def close_account(self):
         self.account_status = "Closed"
         self.make_withdrawal(self.account_balance)
-        new_transaction = BankTransaction("Close Account")
+        new_transaction = BankTransaction("Close Acct.")
         self.record_transaction(new_transaction)
 
     def make_deposit(self, amount):
@@ -89,11 +90,11 @@ class BankAccount:
 
     def record_transaction(self, transaction):
         transaction_record = {
-            "Transaction ID": transaction.transaction_id,
+            "Type": transaction.transaction_type,
             "Date": transaction.transaction_date,
             "Amount": CurrencyUtils.format_currency(transaction.transaction_amount),
-            "Balance" : CurrencyUtils.format_currency(self.account_balance),
-            "Type": transaction.transaction_type
+            "Updated Balance" : CurrencyUtils.format_currency(self.account_balance),
+            "Transaction ID": transaction.transaction_id
         }
 
         self.transaction_history.append(transaction_record)
