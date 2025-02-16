@@ -2,11 +2,18 @@
 import random
 from datetime import date
 
-class Currency:
+class CurrencyUtils:
 
     @staticmethod
     def format_currency(amount):
         return '${:,.2f}'.format(amount)
+
+class DateUtils:
+
+    @staticmethod
+    def get_current_date():
+        today = date.today()
+        return today.strftime("%m-%d-%Y")
 
 class Bank:
     name = "ABC Bank"
@@ -46,7 +53,7 @@ class BankAccount:
                f"Account Number: {self.account_number}\n" \
                f"Type: {self.account_type}\n" \
                f"Account Status: {self.account_status}\n" \
-               f"Balance: {Currency.format_currency(self.account_balance)}\n" \
+               f"Balance: {CurrencyUtils.format_currency(self.account_balance)}\n" \
                f"\nTRANSACTION HISTORY\n" \
                f"{transaction_history_display}\n" \
                f"------------------------------------------"
@@ -74,16 +81,16 @@ class BankAccount:
             new_transaction = BankTransaction("Withdrawal", amount)
             self.record_transaction(new_transaction)
         else:
-            print(f"Insufficient funds for account number {self.account_number}. Withdrawal amount ({Currency.format_currency(amount)}) will cause your "
-                  f"account balance ({Currency.format_currency(self.account_balance)}) "
-                  f"to fall below the required minimum ({Currency.format_currency(BankAccount.minimum_balance)}).")
+            print(f"Insufficient funds for account number {self.account_number}. Withdrawal amount ({CurrencyUtils.format_currency(amount)}) will cause your "
+                  f"account balance ({CurrencyUtils.format_currency(self.account_balance)}) "
+                  f"to fall below the required minimum ({CurrencyUtils.format_currency(BankAccount.minimum_balance)}).")
 
     def record_transaction(self, transaction):
         transaction_record = {
             "Transaction ID": transaction.transaction_id,
             "Date": transaction.transaction_date,
-            "Amount": Currency.format_currency(transaction.transaction_amount),
-            "Balance" : Currency.format_currency(self.account_balance),
+            "Amount": CurrencyUtils.format_currency(transaction.transaction_amount),
+            "Balance" : CurrencyUtils.format_currency(self.account_balance),
             "Type": transaction.transaction_type
         }
 
@@ -99,15 +106,12 @@ class BankTransaction:
         self.transaction_id = BankTransaction.transaction_id
         self.transaction_type = transaction_type
         self.transaction_amount = transaction_amount
-
-        today = date.today()
-        formatted_date = today.strftime("%m-%d-%Y")
-        self.transaction_date = formatted_date
+        self.transaction_date = DateUtils.get_current_date()
 
     def __str__(self):
         return f"Transaction Id: {self.transaction_id} " \
                f"Date: {self.transaction_date} " \
-               f"Amount: {Currency.format_currency(self.transaction_amount)} " \
+               f"Amount: {CurrencyUtils.format_currency(self.transaction_amount)} " \
                f"Type: {self.transaction_type} "
 
             ################################## TEST BANKING SYSTEM ##################################
