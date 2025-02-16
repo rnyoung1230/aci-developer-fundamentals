@@ -29,10 +29,10 @@ class Bank:
         return number
 
 class BankAccount:
-    # class variables and methods
+    # Class variables and methods
     minimum_balance = 100
 
-    # instance variables and methods
+    # Instance variables and methods
     def __init__(self, account_num=None, account_type=None, from_factory=False):
         if from_factory:
             self.account_number = account_num
@@ -66,33 +66,47 @@ class BankAccount:
         # Create a BankAccount object
         new_account = BankAccount(account_num, account_type, from_factory=True)
 
-        # Create a transaction object that represents opening the account and log to event history
+        # Create a BankTransaction object to memorialize opening the account, log it to event history
         open_account_transaction = BankTransaction("Open Acct.")
         new_account.record_transaction(open_account_transaction)
 
-        # Create a transaction object that represents the initial deposit (min. balance requirement)
-        # and log to event history
+        # Make an initial deposit to satisfy the min. balance requirement
         new_account.make_deposit(opening_balance)
 
         return new_account
 
     def close_account(self):
+        # Update the account status
         self.account_status = "Closed"
+
+        # Make a final withdrawal to zero out the account balance
         self.make_withdrawal(self.account_balance)
+
+        # Create a BankTransaction object to memorialize closing the account, log it to event history
         close_account_transaction = BankTransaction("Close Acct.")
         self.record_transaction(close_account_transaction)
 
     def make_deposit(self, amount):
+        # Update the account balance
         self.account_balance += amount
+
+        # Create a BankTransaction object to memorialize the deposit, log it to event history
         deposit_transaction = BankTransaction("Deposit", amount)
         self.record_transaction(deposit_transaction)
 
     def make_withdrawal(self, amount):
+        # Allow the withdrawal only if the account still meets the min. balance requirement OR
+        # the account is closing
         if self.account_balance - amount >= BankAccount.minimum_balance or self.account_status == "Closed":
+
+            # Update the account balance
             self.account_balance -= amount
+
+            # Create a BankTransaction object to memorialize the withdrawal, log it to event history
             withdrawal_transaction = BankTransaction("Withdrawal", amount)
             self.record_transaction(withdrawal_transaction)
         else:
+            # Provide a reason for denying the withdrawal request
             print(f"Insufficient funds for account number {self.account_number}. Withdrawal amount ({CurrencyUtils.format_currency(amount)}) will cause your "
                   f"account balance ({CurrencyUtils.format_currency(self.account_balance)}) "
                   f"to fall below the required minimum ({CurrencyUtils.format_currency(BankAccount.minimum_balance)}).")
@@ -109,10 +123,10 @@ class BankAccount:
         self.transaction_history.append(transaction_record)
 
 class BankTransaction:
-    # class variables and methods
+    # Class variables and methods
     transaction_id = 0
 
-    # instance variables and methods
+    # Instance variables and methods
     def __init__(self, transaction_type=None, transaction_amount=0):
         BankTransaction.transaction_id += 1
         self.transaction_id = BankTransaction.transaction_id
