@@ -1,6 +1,5 @@
 '''
-1. Create a new Python file named "person.py". Define a class called "Person"
-with the following instance attributes:
+1. Create a new Python file named "person.py". Define a class called "Person" with the following instance attributes:
     - name (string)
     - age (integer)
     - hobby(string)

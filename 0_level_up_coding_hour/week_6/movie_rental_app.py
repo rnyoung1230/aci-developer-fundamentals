@@ -1,5 +1,5 @@
 '''
-You are creating a movie rental application. Implement a Movie class with the following specifications:
+2. You are creating a movie rental application. Implement a Movie class with the following specifications:
 
 Instance attributes:
 - name (string): The title of the movie
