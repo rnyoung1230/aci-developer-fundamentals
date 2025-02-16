@@ -33,16 +33,13 @@ class BankAccount:
     minimum_balance = 100
 
     # instance variables and methods
-    def __init__(self, account_num=None, account_type="Savings", opening_balance=minimum_balance, from_factory=False):
+    def __init__(self, account_num=None, account_type="Savings", from_factory=False):
         if from_factory:
             self.account_number = account_num
             self.account_type = account_type
             self.account_status = "Active"
-            self.account_balance = opening_balance
+            self.account_balance = 0
             self.transaction_history = []
-
-            new_transaction = BankTransaction("Open Acct.", opening_balance)
-            self.record_transaction(new_transaction)
         else:
             print("Cannot instantiate directly...use the BankAccount.open_account() method.")
 
@@ -63,8 +60,20 @@ class BankAccount:
 
     @staticmethod
     def open_account(account_type, opening_balance=minimum_balance):
+        # Find/Assign a unique number to this account for identification
         account_num = Bank.assign_account_number()
-        new_account = BankAccount(account_num, account_type, opening_balance, from_factory=True)
+
+        # Create a BankAccount object
+        new_account = BankAccount(account_num, account_type, from_factory=True)
+
+        # Create a transaction object that represents opening the account and log to event history
+        open_account_transaction = BankTransaction("Open Acct.")
+        new_account.record_transaction(open_account_transaction)
+
+        # Create a transaction object that represents the initial deposit (min. balance requirement)
+        # and log to event history
+        new_account.make_deposit(opening_balance)
+
         return new_account
 
     def close_account(self):
