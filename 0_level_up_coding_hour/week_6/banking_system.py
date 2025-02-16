@@ -91,7 +91,7 @@ class BankAccount:
 
 class BankTransaction:
     # class variables and methods
-    transaction_id = 1
+    transaction_id = 0
 
     # instance variables and methods
     def __init__(self, transaction_type="Deposit", transaction_amount=None):
