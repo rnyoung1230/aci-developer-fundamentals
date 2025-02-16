@@ -42,7 +42,7 @@ class BankAccount:
         for record in self.transaction_history:
             transaction_history_display += ' '.join(f'{k}: {v}' for k, v in record.items()) + '\n'
 
-        return f"BANK ACCOUNT SUMMARY\n" \
+        return f"\nBANK ACCOUNT SUMMARY\n" \
                f"Account Number: {self.account_number}\n" \
                f"Type: {self.account_type}\n" \
                f"Account Status: {self.account_status}\n" \
@@ -76,7 +76,7 @@ class BankAccount:
         else:
             print(f"Insufficient funds for account number {self.account_number}. Withdrawal amount ({Currency.format_currency(amount)}) will cause your "
                   f"account balance ({Currency.format_currency(self.account_balance)}) "
-                  f"to fall below the required minimum ({Currency.format_currency(BankAccount.minimum_balance)})\n")
+                  f"to fall below the required minimum ({Currency.format_currency(BankAccount.minimum_balance)}).")
 
     def record_transaction(self, transaction):
         transaction_record = {
@@ -104,7 +104,7 @@ class BankTransaction:
         self.transaction_date = formatted_date
 
     def __str__(self):
-        return f"Id: {self.transaction_id} " \
+        return f"Transaction Id: {self.transaction_id} " \
                f"Date: {self.transaction_date} " \
                f"Amount: {Currency.format_currency(self.transaction_amount)} " \
                f"Type: {self.transaction_type} "
