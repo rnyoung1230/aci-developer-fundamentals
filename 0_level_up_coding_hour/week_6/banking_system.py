@@ -12,8 +12,7 @@ class DateUtils:
 
     @staticmethod
     def get_current_date():
-        today = date.today()
-        return today.strftime("%m-%d-%Y")
+        return date.today().strftime("%m-%d-%Y")
 
 class Bank:
     name = "ABC Bank"
