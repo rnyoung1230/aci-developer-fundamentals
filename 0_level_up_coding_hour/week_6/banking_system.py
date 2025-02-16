@@ -83,6 +83,7 @@ class BankAccount:
             "Transaction ID": transaction.transaction_id,
             "Date": transaction.transaction_date,
             "Amount": Currency.format_currency(transaction.transaction_amount),
+            "Balance" : Currency.format_currency(self.account_balance),
             "Type": transaction.transaction_type
         }
 
