@@ -58,9 +58,9 @@ class BankAccount:
         return new_account
 
     def close_account(self):
-        self.account_balance = 0
         self.account_status = "Closed"
-        new_transaction = BankTransaction("Close Account", self.account_balance)
+        self.make_withdrawal(self.account_balance)
+        new_transaction = BankTransaction("Close Account")
         self.record_transaction(new_transaction)
 
     def make_deposit(self, amount):
@@ -69,7 +69,7 @@ class BankAccount:
         self.record_transaction(new_transaction)
 
     def make_withdrawal(self, amount):
-        if self.account_balance - amount >= BankAccount.minimum_balance:
+        if self.account_balance - amount >= BankAccount.minimum_balance or self.account_status == "Closed":
             self.account_balance -= amount
             new_transaction = BankTransaction("Withdrawal", amount)
             self.record_transaction(new_transaction)
@@ -94,7 +94,7 @@ class BankTransaction:
     transaction_id = 0
 
     # instance variables and methods
-    def __init__(self, transaction_type="Deposit", transaction_amount=None):
+    def __init__(self, transaction_type="Deposit", transaction_amount=0):
         BankTransaction.transaction_id += 1
         self.transaction_id = BankTransaction.transaction_id
         self.transaction_type = transaction_type
