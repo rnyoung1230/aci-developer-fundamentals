@@ -10,91 +10,70 @@ class Currency:
 
 class Bank:
     name = "ABC Bank"
-
-    accounts = {"1000000": {
-        "type": "Savings",
-        "balance": 0,
-        "transactions" : [
-            {   "transaction_id": 0,
-                "type" : "Deposit",
-                "amount" : 250,
-                "date" : "02-15-2025"
-            },
-            {   "transaction_id": 1,
-                "type": "Withdrawal",
-                "amount": 100,
-                "date": "02-16-2025"
-            }
-        ]
-        }
-    }
+    active_accounts = []
 
     @staticmethod
     def assign_account_number():
-        acct_num = random.randint(1000001, 9999999)
-        # If account number already in use, find another
-        while acct_num in Bank.accounts:
-            acct_num = random.randint(1000001, 9999999)
-        return acct_num
+        number = random.randint(1000001, 9999999)
+        # If number already in use, find another
+        while number in Bank.active_accounts:
+            number = random.randint(1000001, 9999999)
+        return number
 
     @staticmethod
     def open_account(account_type, opening_balance):
-        new_account = BankAccount(account_type, opening_balance)
-        Bank.accounts[new_account.account_number] = \
-            {"type": new_account.account_type, "balance": new_account.account_balance, "transactions": []}
+        account_num = Bank.assign_account_number()
+        Bank.active_accounts.append(account_num)
+        new_account = BankAccount(account_num, account_type, opening_balance)
         return new_account
 
     @staticmethod
     def close_account(account_num):
-        Bank.accounts.pop(account_num)
-
-    @staticmethod
-    def record_account_transaction(bank_account, bank_transaction):
-        if bank_transaction.transaction_type == "Deposit":
-            Bank.accounts[bank_account]["balance"] += bank_transaction.transaction_amount
-        else:
-            Bank.accounts[bank_account]["balance"] -= bank_transaction.transaction_amount
-
-        transaction = {
-            "transaction_id": bank_transaction.transaction_id,
-            "type": bank_transaction.transaction_type,
-            "amount": bank_transaction.transaction_amount,
-            "date": bank_transaction.transaction_date
-        }
-
-        Bank.accounts[bank_account]["transactions"].append(transaction)
+        Bank.active_accounts.pop(account_num)
 
 class BankAccount:
     # class variables and methods
     minimum_balance = 100
 
     # instance variables and methods
-    def __init__(self, account_type="Savings", opening_balance=minimum_balance):
-        self.account_number = Bank.assign_account_number()
+    def __init__(self, account_num=None, account_type="Savings", opening_balance=minimum_balance):
+        self.account_number = account_num
         self.account_type = account_type
         self.account_balance = opening_balance
+        self.transaction_history = []
 
     def __str__(self):
         return f"BANK ACCOUNT SUMMARY\n" \
                f"Account Number: {self.account_number}\n" \
                f"Type: {self.account_type}\n" \
                f"Balance: {Currency.format_currency(self.account_balance)}\n" \
+               f"Transaction History: {self.transaction_history}\n" \
                f"------------------------------------------"
 
     def make_deposit(self, amount):
         self.account_balance += amount
         new_transaction = BankTransaction("Deposit", amount)
-        Bank.record_account_transaction(self.account_number, new_transaction)
+        self.record_transaction(new_transaction)
 
     def make_withdrawal(self, amount):
         if self.account_balance - amount >= BankAccount.minimum_balance:
             self.account_balance -= amount
             new_transaction = BankTransaction("Withdrawal", amount)
-            Bank.record_account_transaction(self.account_number, new_transaction)
+            self.record_transaction(new_transaction)
         else:
             print(f"Insufficient funds. Withdrawal amount ({Currency.format_currency(amount)}) will cause your "
                   f"account balance ({Currency.format_currency(self.account_balance)}) "
                   f"to fall below the required minimum ({Currency.format_currency(BankAccount.minimum_balance)})")
+
+    def record_transaction(self, transaction):
+        transaction_record = {
+            "transaction_id": transaction.transaction_id,
+            "type": transaction.transaction_type,
+            "amount": transaction.transaction_amount,
+            "date": transaction.transaction_date
+        }
+
+        self.transaction_history.append(transaction_record)
 
 class BankTransaction:
     # class variables and methods
@@ -112,12 +91,10 @@ class BankTransaction:
         self.transaction_date = formatted_date
 
     def __str__(self):
-        return f"BANK TRANSACTION SUMMARY\n" \
-               f"Id: {self.transaction_id}\n" \
+        return f"Id: {self.transaction_id}\n" \
                f"Type: {self.transaction_type}\n" \
                f"Amount: {Currency.format_currency(self.transaction_amount)}\n" \
-               f"Date: {self.transaction_date}\n" \
-               f"------------------------------------------"
+               f"Date: {self.transaction_date}\n"
 
 ################################## TEST BANKING SYSTEM ##################################
 for i in range(10):
@@ -133,28 +110,7 @@ for i in range(10):
     print(new_savings_account)
 
 # Confirm assign_account_number is working...list and set lengths should match
-accounts_set = set(Bank.accounts)
-print(f"Set length: {len(accounts_set)}, List length: {len(Bank.accounts)}")
-print(Bank.accounts)
+accounts_set = set(Bank.active_accounts)
+print(f"Set length: {len(accounts_set)}, List length: {len(Bank.active_accounts)}")
+print(Bank.active_accounts)
 print("----------------------------------------------------------------------")
-
-# Find any accounts where the balance is ABOVE $750 and close them
-account_numbers = [x for x in Bank.accounts.keys() if Bank.accounts[x]["balance"] > 750] # list comprehension
-for account_number in account_numbers:
-    Bank.close_account(account_number)
-    print(f"Account: {account_number} has been closed.")
-
-# Print an updated list of accounts...should be less after account closures
-print(Bank.accounts)
-print("----------------------------------------------------------------------")
-
-################################## TEST BANK TRANSACTION ##################################
-# print("1000000", Bank.accounts["1000000"]["transactions"])
-# new_tx = {'transaction_id': 5, 'type': 'Deposit', 'amount': 999, 'date': '02-11-2025'}
-# Bank.accounts["1000000"]["transactions"].append(new_tx)
-# print("1000000", Bank.accounts["1000000"]["transactions"])
-# new_checking_account = Bank.open_account(account_type="Checking", opening_balance=250)
-# new_checking_account.make_deposit(random.randint(500, 1000))
-# print(new_checking_account.account_number, Bank.accounts[new_checking_account.account_number])
-# new_checking_account.make_withdrawal(random.randint(100, 1000))
-# print(new_checking_account.account_number, Bank.accounts[new_checking_account.account_number])
