@@ -20,11 +20,14 @@ class Bank:
 
     @staticmethod
     def assign_account_number():
-        number = random.randint(1000000, 9999999)
-        # If number already in use, find another
-        while number in Bank.accounts:
-            number = random.randint(1000000, 9999999)
+        # Generate a candidate 8-digit number to use
+        number = random.randint(10000000, 99999999)
 
+        # Verify number isn't already assigned, keep generating numbers until you find one that's available
+        while number in Bank.accounts:
+            number = random.randint(10000000, 99999999)
+
+        # Add the number to the list of assigned accounts
         Bank.accounts.append(number)
         return number
 
