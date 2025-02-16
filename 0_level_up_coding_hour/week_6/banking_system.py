@@ -34,15 +34,18 @@ class BankAccount:
     minimum_balance = 100
 
     # instance variables and methods
-    def __init__(self, account_num=None, account_type="Savings", opening_balance=minimum_balance):
-        self.account_number = account_num
-        self.account_type = account_type
-        self.account_status = "Active"
-        self.account_balance = opening_balance
-        self.transaction_history = []
+    def __init__(self, account_num=None, account_type="Savings", opening_balance=minimum_balance, from_factory=False):
+        if from_factory:
+            self.account_number = account_num
+            self.account_type = account_type
+            self.account_status = "Active"
+            self.account_balance = opening_balance
+            self.transaction_history = []
 
-        new_transaction = BankTransaction("Open Account", opening_balance)
-        self.record_transaction(new_transaction)
+            new_transaction = BankTransaction("Open Account", opening_balance)
+            self.record_transaction(new_transaction)
+        else:
+            print("Cannot instantiate directly...use the BankAccount.open_account() method.")
 
     def __str__(self):
         transaction_history_display = ""
@@ -59,9 +62,9 @@ class BankAccount:
                f"------------------------------------------"
 
     @staticmethod
-    def open_account(account_type, opening_balance):
+    def open_account(account_type, opening_balance=minimum_balance):
         account_num = Bank.assign_account_number()
-        new_account = BankAccount(account_num, account_type, opening_balance)
+        new_account = BankAccount(account_num, account_type, opening_balance, from_factory=True)
         return new_account
 
     def close_account(self):
@@ -128,7 +131,7 @@ for i in range(10):
     #print(new_checking_account)
 
 for i in range(10):
-    new_savings_account = BankAccount.open_account(account_type="Savings", opening_balance=100)
+    new_savings_account = BankAccount.open_account(account_type="Savings")
     new_savings_account.make_deposit(random.randint(500, 1000))
     new_savings_account.make_withdrawal(random.randint(100, 1000))
     # Arbitrarily pick some accounts to test the close method on
@@ -146,3 +149,6 @@ print(f"Set length: {len(accounts_set)}, List length: {len(Bank.accounts)}")
 print("")
 print(f"Bank Accounts:\n {Bank.accounts}")
 print("----------------------------------------------------------------------")
+
+# Confirm error message if user tries to directly instantiate a bank account
+new_bank_account = BankAccount()
