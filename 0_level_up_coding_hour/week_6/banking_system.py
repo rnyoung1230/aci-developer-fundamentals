@@ -163,7 +163,6 @@ for i in range(10):
     # Add each account to the bank_account list
     bank_accounts.append(new_checking_account)
 
-
 for i in range(10):
     # Create a bunch of Savings accounts...execute deposit and withdrawal activities on each
     new_savings_account = BankAccount.open_account(account_type="Savings")
