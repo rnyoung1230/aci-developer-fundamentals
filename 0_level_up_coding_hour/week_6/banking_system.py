@@ -96,7 +96,7 @@ class BankAccount:
         self.account_balance += amount
 
         # Create a BankTransaction object to memorialize the deposit, log it to transaction history
-        deposit_transaction = BankTransaction("Deposit", amount)
+        deposit_transaction = BankTransaction("Deposit", amount, self.account_balance)
         self.record_transaction(deposit_transaction)
 
     def make_withdrawal(self, amount):
@@ -108,7 +108,7 @@ class BankAccount:
             self.account_balance -= amount
 
             # Create a BankTransaction object to memorialize the withdrawal, log it to transaction history
-            withdrawal_transaction = BankTransaction("Withdrawal", amount)
+            withdrawal_transaction = BankTransaction("Withdrawal", amount, self.account_balance)
             self.record_transaction(withdrawal_transaction)
 
         else:
@@ -122,7 +122,7 @@ class BankAccount:
             "Type": transaction.transaction_type,
             "Date": transaction.transaction_date,
             "Amount": CurrencyUtils.format_currency(transaction.transaction_amount),
-            "Updated Balance" : CurrencyUtils.format_currency(self.account_balance),
+            "Updated Balance" : CurrencyUtils.format_currency(transaction.updated_balance),
             "Transaction ID": transaction.transaction_id
         }
 
@@ -133,19 +133,25 @@ class BankTransaction:
     transaction_id = 0
 
     # Instance variables and methods
-    def __init__(self, transaction_type=None, transaction_amount=0):
+    def __init__(self, transaction_type=None, transaction_amount=0, account_balance=0):
+        # Increment the transaction id so this transaction has a unique identifier
         BankTransaction.transaction_id += 1
+
+        # Set the transaction object's attributes
+        self.transaction_type = transaction_type,
+        self.transaction_date = DateUtils.get_current_date(),
+        self.transaction_amount = transaction_amount,
+        self.updated_balance = account_balance,
         self.transaction_id = BankTransaction.transaction_id
-        self.transaction_type = transaction_type
-        self.transaction_amount = transaction_amount
-        self.transaction_date = DateUtils.get_current_date()
 
     def __str__(self):
         # Format the BankTransaction object into a print-friendly string
-        return f"Transaction Id: {self.transaction_id} " \
+        return f"TRANSACTION RECORD\n" \
+               f"Type: {self.transaction_type} " \
                f"Date: {self.transaction_date} " \
                f"Amount: {CurrencyUtils.format_currency(self.transaction_amount)} " \
-               f"Type: {self.transaction_type} "
+               f"Updated Balance: {CurrencyUtils.format_currency(self.updated_balance)} " \
+               f"Transaction Id: {self.transaction_id} "
 
             ################################## TEST BANKING SYSTEM ##################################
 # Create a list to hold all the created accounts and their completed transactions
@@ -191,3 +197,6 @@ print("----------------------------------------------------------------------")
 
 # Confirm error message if user tries to directly instantiate a bank account
 new_bank_account = BankAccount()
+
+a_transaction = BankTransaction()
+print(a_transaction, )
