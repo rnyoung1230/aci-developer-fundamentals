@@ -65,13 +65,13 @@ class BankAccount:
 
     @staticmethod
     def open_account(account_type, opening_balance=minimum_balance):
-        # Find/Assign a unique number that identifies account
+        # Find/Assign a unique number that identifies the account
         account_num = Bank.assign_account_number()
 
         # Create a BankAccount object
         new_account = BankAccount(account_num, account_type, from_factory=True)
 
-        # Create a BankTransaction object to memorialize opening the account, log it to event history
+        # Create a BankTransaction object to memorialize opening the account, log it to transaction history
         open_account_transaction = BankTransaction("Open Acct.")
         new_account.record_transaction(open_account_transaction)
 
@@ -87,7 +87,7 @@ class BankAccount:
         # Make a final withdrawal to zero out the account balance
         self.make_withdrawal(self.account_balance)
 
-        # Create a BankTransaction object to memorialize closing the account, log it to event history
+        # Create a BankTransaction object to memorialize closing the account, log it to transaction history
         close_account_transaction = BankTransaction("Close Acct.")
         self.record_transaction(close_account_transaction)
 
@@ -95,19 +95,19 @@ class BankAccount:
         # Update the account balance
         self.account_balance += amount
 
-        # Create a BankTransaction object to memorialize the deposit, log it to event history
+        # Create a BankTransaction object to memorialize the deposit, log it to transaction history
         deposit_transaction = BankTransaction("Deposit", amount)
         self.record_transaction(deposit_transaction)
 
     def make_withdrawal(self, amount):
-        # Allow the withdrawal only if the account still meets the min. balance requirement OR
+        # Allow the withdrawal only if the account continues to meet the min. balance requirement OR
         # the account is closing
         if self.account_balance - amount >= BankAccount.minimum_balance or self.account_status == "Closed":
 
             # Update the account balance
             self.account_balance -= amount
 
-            # Create a BankTransaction object to memorialize the withdrawal, log it to event history
+            # Create a BankTransaction object to memorialize the withdrawal, log it to transaction history
             withdrawal_transaction = BankTransaction("Withdrawal", amount)
             self.record_transaction(withdrawal_transaction)
         else:
@@ -147,28 +147,37 @@ class BankTransaction:
                f"Type: {self.transaction_type} "
 
             ################################## TEST BANKING SYSTEM ##################################
-# Create a bunch of Checking and Savings accounts...execute deposit and withdrawal activities on each and then print a summary
+# Create a list to hold all the created accounts and their completed transactions
 bank_accounts = []
+
 for i in range(10):
+    # Create a bunch of Checking accounts...execute deposit and withdrawal activities on each
     new_checking_account = BankAccount.open_account(account_type="Checking", opening_balance=250)
     new_checking_account.make_deposit(random.randint(500, 1000))
     new_checking_account.make_withdrawal(random.randint(100, 1000))
+
     # Arbitrarily pick some accounts to test the close method on
     if new_checking_account.account_balance < 250:
         new_checking_account.close_account()
+
+    # Add each account to the bank_account list
     bank_accounts.append(new_checking_account)
-    #print(new_checking_account)
+
 
 for i in range(10):
+    # Create a bunch of Savings accounts...execute deposit and withdrawal activities on each
     new_savings_account = BankAccount.open_account(account_type="Savings")
     new_savings_account.make_deposit(random.randint(500, 1000))
     new_savings_account.make_withdrawal(random.randint(100, 1000))
+
     # Arbitrarily pick some accounts to test the close method on
     if new_savings_account.account_balance < 250:
         new_savings_account.close_account()
-    bank_accounts.append(new_savings_account)
-    #print(new_savings_account)
 
+    # Add each account to the bank_account list
+    bank_accounts.append(new_savings_account)
+
+# Print a summary for each account created above
 for account in bank_accounts:
     print(account)
 
