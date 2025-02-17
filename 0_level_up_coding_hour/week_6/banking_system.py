@@ -72,7 +72,7 @@ class BankAccount:
         new_account = BankAccount(account_num, account_type, from_factory=True)
 
         # Create a BankTransaction object to memorialize opening the account, log it to transaction history
-        open_account_transaction = BankTransaction("Open Acct.")
+        open_account_transaction = BankTransaction(0, 0, "Open Acct.")
         new_account.record_transaction(open_account_transaction)
 
         # Make an initial deposit to satisfy the min. balance requirement
@@ -88,7 +88,7 @@ class BankAccount:
         self.make_withdrawal(self.account_balance)
 
         # Create a BankTransaction object to memorialize closing the account, log it to transaction history
-        close_account_transaction = BankTransaction("Close Acct.")
+        close_account_transaction = BankTransaction(0, 0, "Close Acct.")
         self.record_transaction(close_account_transaction)
 
     def make_deposit(self, amount):
@@ -96,7 +96,7 @@ class BankAccount:
         self.account_balance += amount
 
         # Create a BankTransaction object to memorialize the deposit, log it to transaction history
-        deposit_transaction = BankTransaction("Deposit", amount, self.account_balance)
+        deposit_transaction = BankTransaction(amount, self.account_balance, "Deposit")
         self.record_transaction(deposit_transaction)
 
     def make_withdrawal(self, amount):
@@ -108,7 +108,7 @@ class BankAccount:
             self.account_balance -= amount
 
             # Create a BankTransaction object to memorialize the withdrawal, log it to transaction history
-            withdrawal_transaction = BankTransaction("Withdrawal", amount, self.account_balance)
+            withdrawal_transaction = BankTransaction(amount, self.account_balance, "Withdrawal")
             self.record_transaction(withdrawal_transaction)
 
         else:
@@ -133,7 +133,7 @@ class BankTransaction:
     transaction_id = 0
 
     # Instance variables and methods
-    def __init__(self, transaction_type=None, transaction_amount=0, account_balance=0):
+    def __init__(self, transaction_amount=0, account_balance=0, transaction_type=None):
         # Increment the transaction id so this transaction has a unique identifier
         BankTransaction.transaction_id += 1
 
