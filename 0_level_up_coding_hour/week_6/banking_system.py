@@ -64,7 +64,7 @@ class BankAccount:
                f"------------------------------------------"
 
     @staticmethod
-    def open_account(account_type, opening_balance=minimum_balance):
+    def open_account(account_type="Savings", opening_balance=minimum_balance):
         # Find/Assign a unique number that identifies the account
         account_num = Bank.assign_account_number()
 
@@ -166,7 +166,8 @@ for i in range(10):
 
 for i in range(10):
     # Create a bunch of Savings accounts...execute deposit and withdrawal activities on each
-    new_savings_account = BankAccount.open_account(account_type="Savings")
+    #new_savings_account = BankAccount.open_account(account_type="Savings")
+    new_savings_account = BankAccount.open_account()
     new_savings_account.make_deposit(random.randint(500, 1000))
     new_savings_account.make_withdrawal(random.randint(100, 1000))
 
