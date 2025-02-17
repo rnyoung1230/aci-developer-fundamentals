@@ -110,6 +110,7 @@ class BankAccount:
             # Create a BankTransaction object to memorialize the withdrawal, log it to transaction history
             withdrawal_transaction = BankTransaction("Withdrawal", amount)
             self.record_transaction(withdrawal_transaction)
+
         else:
             # Provide a reason for denying the withdrawal request
             print(f"Insufficient funds for account number {self.account_number}. Withdrawal amount ({CurrencyUtils.format_currency(amount)}) will cause your "
