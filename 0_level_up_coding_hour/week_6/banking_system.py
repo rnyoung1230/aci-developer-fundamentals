@@ -48,10 +48,12 @@ class BankAccount:
 
     def __str__(self):
         transaction_history_display = ""
+        # Unpack the list of transaction events and format them into a line-by-line item display
         for record in self.transaction_history:
             transaction_history_display += ' '.join(f'{k}: {str(v).ljust(12, " ")}'
                                                     for k, v in record.items()) + '\n'
 
+        # Format the BankAccount object and its transaction history into a print-friendly string
         return f"\nBANK ACCOUNT SUMMARY\n" \
                f"Acct. Number: {self.account_number}\n" \
                f"Type: {self.account_type}\n" \
@@ -138,6 +140,7 @@ class BankTransaction:
         self.transaction_date = DateUtils.get_current_date()
 
     def __str__(self):
+        # Format the BankTransaction object into a print-friendly string
         return f"Transaction Id: {self.transaction_id} " \
                f"Date: {self.transaction_date} " \
                f"Amount: {CurrencyUtils.format_currency(self.transaction_amount)} " \
