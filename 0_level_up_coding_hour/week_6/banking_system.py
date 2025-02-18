@@ -1,18 +1,6 @@
 # Banking System
 import random
-from datetime import date
-
-class CurrencyUtils:
-
-    @staticmethod
-    def format_currency(amount):
-        return '${:,.2f}'.format(amount)
-
-class DateUtils:
-
-    @staticmethod
-    def get_current_date():
-        return date.today().strftime("%m-%d-%Y")
+import utilities
 
 class BankAccount:
     # Class variables and methods
@@ -58,7 +46,7 @@ class BankAccount:
                f"Acct. Number: {self.account_number}\n" \
                f"Type: {self.account_type}\n" \
                f"Status: {self.account_status}\n" \
-               f"Balance: {CurrencyUtils.format_currency(self.account_balance)}\n" \
+               f"Balance: {utilities.format_currency(self.account_balance)}\n" \
                f"\nTRANSACTION HISTORY\n" \
                f"{transaction_history_display}\n" \
                f"------------------------------------------"
@@ -113,17 +101,17 @@ class BankAccount:
 
         else:
             # Provide a reason for denying the withdrawal request
-            print(f"Insufficient funds for account number {self.account_number}. Withdrawal amount ({CurrencyUtils.format_currency(amount)}) will cause your "
-                  f"account balance ({CurrencyUtils.format_currency(self.account_balance)}) "
-                  f"to fall below the required minimum ({CurrencyUtils.format_currency(BankAccount.minimum_balance)}).")
+            print(f"Insufficient funds for account number {self.account_number}. Withdrawal amount ({utilities.format_currency(amount)}) will cause your "
+                  f"account balance ({utilities.format_currency(self.account_balance)}) "
+                  f"to fall below the required minimum ({utilities.format_currency(BankAccount.minimum_balance)}).")
 
     def record_transaction(self, transaction):
         # Build a record to capture the event
         transaction_record = {
             "Type": transaction.transaction_type,
             "Date": transaction.transaction_date,
-            "Amount": CurrencyUtils.format_currency(transaction.transaction_amount),
-            "Updated Balance" : CurrencyUtils.format_currency(transaction.updated_balance),
+            "Amount": utilities.format_currency(transaction.transaction_amount),
+            "Updated Balance" : utilities.format_currency(transaction.updated_balance),
             "Transaction ID": transaction.transaction_id
         }
         # Append the event to the BankAccount object's transaction history
@@ -144,7 +132,7 @@ class BankTransaction:
         # Assign values to the BankTransaction object's attributes
         self.transaction_id = BankTransaction.assign_transaction_id()
         self.transaction_type = transaction_type
-        self.transaction_date = DateUtils.get_current_date()
+        self.transaction_date = utilities.get_current_date()
         self.transaction_amount = transaction_amount
         self.updated_balance = updated_balance
 
@@ -153,8 +141,8 @@ class BankTransaction:
         return f"Transaction Id: {self.transaction_id} " \
                f"Type: {self.transaction_type} " \
                f"Date: {self.transaction_date} " \
-               f"Amount: {CurrencyUtils.format_currency(self.transaction_amount)} " \
-               f"Updated Balance: {CurrencyUtils.format_currency(self.updated_balance)} "
+               f"Amount: {utilities.format_currency(self.transaction_amount)} " \
+               f"Updated Balance: {utilities.format_currency(self.updated_balance)} "
 
             ################################## TEST BANKING SYSTEM ##################################
 # Create a list to hold all the created accounts and their completed transactions
