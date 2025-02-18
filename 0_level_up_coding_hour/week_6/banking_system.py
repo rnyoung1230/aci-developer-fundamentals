@@ -14,26 +14,26 @@ class DateUtils:
     def get_current_date():
         return date.today().strftime("%m-%d-%Y")
 
-class Bank:
-    name = "ABC Bank"
-    accounts = []
+class BankAccount:
+    # Class variables and methods
+    minimum_balance = 100
+    assigned_account_numbers = []
+    transaction_types = ["Deposit", "Withdrawal", "Open Acct.", "Close Acct."]
+    account_status_types = ["Pending", "Active", "Closed"]
 
-    @staticmethod
-    def assign_account_number():
+    @classmethod
+    def assign_account_number(cls):
         # Generate a candidate 8-digit number to use
         number = random.randint(10000000, 99999999)
 
         # Verify number isn't already assigned, keep generating numbers until you find one that's available
-        while number in Bank.accounts:
+        while number in cls.assigned_account_numbers:
             number = random.randint(10000000, 99999999)
 
         # Add the number to the list of assigned accounts
-        Bank.accounts.append(number)
-        return number
+        cls.assigned_account_numbers.append(number)
 
-class BankAccount:
-    # Class variables and methods
-    minimum_balance = 100
+        return number
 
     # Instance variables and methods
     def __init__(self, account_num=None, account_type=None, from_factory=False):
@@ -68,7 +68,7 @@ class BankAccount:
     @staticmethod
     def open_account(account_type="Savings", opening_balance=minimum_balance):
         # Find/Assign a unique number that identifies the account
-        account_num = Bank.assign_account_number()
+        account_num = BankAccount.assign_account_number()
 
         # Create a BankAccount object
         new_account = BankAccount(account_num, account_type, from_factory=True)
@@ -135,13 +135,16 @@ class BankTransaction:
     # Class variables and methods
     transaction_id = 0
 
+    @classmethod
+    def assign_transaction_id(cls):
+        # Increment the transaction id so this transaction has a unique identifier
+        cls.transaction_id += 1
+        return cls.transaction_id
+
     # Instance variables and methods
     def __init__(self, transaction_type=None, transaction_amount=0, updated_balance=0):
-        # Increment the transaction id so this transaction has a unique identifier
-        BankTransaction.transaction_id += 1
-
         # Assign values to the BankTransaction object's attributes
-        self.transaction_id = BankTransaction.transaction_id
+        self.transaction_id = BankTransaction.assign_transaction_id()
         self.transaction_type = transaction_type
         self.transaction_date = DateUtils.get_current_date()
         self.transaction_amount = transaction_amount
@@ -191,10 +194,10 @@ for account in bank_accounts:
     print(account)
 
 # Confirm assign_account_number is working (no duplicates)...list and set lengths should match
-accounts_set = set(Bank.accounts)
-print(f"Set length: {len(accounts_set)}, List length: {len(Bank.accounts)}")
+account_numbers_set = set(BankAccount.assigned_account_numbers)
+print(f"Set length: {len(account_numbers_set)}, List length: {len(BankAccount.assigned_account_numbers)}")
 print("")
-print(f"Bank Accounts:\n {Bank.accounts}")
+print(f"Bank Accounts:\n {BankAccount.assigned_account_numbers}")
 print("----------------------------------------------------------------------")
 
 # Confirm error message if user tries to directly instantiate a bank account
