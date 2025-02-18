@@ -5,19 +5,19 @@ import utilities # custom utility methods (from utilities.py)
 class BankAccount:
     # Class variables and methods
     minimum_balance = 100
-    assigned_account_numbers = []
+    reserved_account_numbers = []
 
     @classmethod
-    def assign_account_number(cls):
+    def get_account_number(cls):
         # Generate a candidate 8-digit number to use
         number = random.randint(10000000, 99999999)
 
         # Verify number isn't already assigned, keep generating numbers until you find one that's available
-        while number in cls.assigned_account_numbers:
+        while number in cls.reserved_account_numbers:
             number = random.randint(10000000, 99999999)
 
         # Add the number to the list of assigned accounts
-        cls.assigned_account_numbers.append(number)
+        cls.reserved_account_numbers.append(number)
 
         return number
 
@@ -54,7 +54,7 @@ class BankAccount:
     @staticmethod
     def open_account(account_type="Savings", opening_balance=minimum_balance):
         # Find/Assign a unique number that identifies the account
-        account_num = BankAccount.assign_account_number()
+        account_num = BankAccount.get_account_number()
 
         # Create a BankAccount object
         new_account = BankAccount(account_num, account_type, from_factory=True)
@@ -123,7 +123,7 @@ class BankTransaction:
     today = utilities.get_current_date()
 
     @classmethod
-    def assign_transaction_id(cls):
+    def get_id(cls):
         # Increment the transaction id so this transaction has a unique identifier
         cls.transaction_id += 1
         return cls.transaction_id
@@ -131,7 +131,7 @@ class BankTransaction:
     # Instance variables and methods
     def __init__(self, transaction_type=None, transaction_amount=0, updated_balance=0):
         # Assign values to the BankTransaction object's attributes
-        self.transaction_id = BankTransaction.assign_transaction_id()
+        self.transaction_id = BankTransaction.get_id()
         self.transaction_date = BankTransaction.today
         self.transaction_type = transaction_type
         self.transaction_amount = transaction_amount
@@ -195,10 +195,10 @@ for account in bank_accounts:
     print(account)
 
 # Confirm assign_account_number is working (no duplicates)...list and set lengths should match
-account_numbers_set = set(BankAccount.assigned_account_numbers)
-print(f"Set length: {len(account_numbers_set)}, List length: {len(BankAccount.assigned_account_numbers)}")
+account_numbers_set = set(BankAccount.reserved_account_numbers)
+print(f"Set length: {len(account_numbers_set)}, List length: {len(BankAccount.reserved_account_numbers)}")
 print("")
-print(f"Bank Accounts:\n {BankAccount.assigned_account_numbers}")
+print(f"Bank Accounts:\n {BankAccount.reserved_account_numbers}")
 print("----------------------------------------------------------------------")
 
 # Confirm error message if user tries to directly instantiate a bank account object
