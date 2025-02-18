@@ -186,5 +186,5 @@ print("")
 print(f"Bank Accounts:\n {BankAccount.assigned_account_numbers}")
 print("----------------------------------------------------------------------")
 
-# Confirm error message if user tries to directly instantiate a bank account
+# Confirm error message if user tries to directly instantiate a bank account object
 new_bank_account = BankAccount()
