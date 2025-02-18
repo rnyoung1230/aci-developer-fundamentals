@@ -27,7 +27,7 @@ def adjust_date(start_date, days_to_add):
 
     Args:
     start_date (str): A string representing the start date in the format "MM-DD-YYYY".
-    days_to_add (int): The number of days to add to the start date.
+    days_to_add (+/- int): The number of days to add to (or subtract from) the start date.
 
     Returns:
     str: A string representing the new date after adding the specified number of days,
