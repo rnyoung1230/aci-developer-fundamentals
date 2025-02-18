@@ -108,8 +108,8 @@ class BankAccount:
     def record_transaction(self, transaction):
         # Build a record to capture the event
         transaction_record = {
-            "Type": transaction.transaction_type,
             "Date": transaction.transaction_date,
+            "Type": transaction.transaction_type,
             "Amount": utilities.format_currency(transaction.transaction_amount),
             "Updated Balance" : utilities.format_currency(transaction.updated_balance),
             "Transaction ID": transaction.transaction_id
@@ -131,16 +131,16 @@ class BankTransaction:
     def __init__(self, transaction_type=None, transaction_amount=0, updated_balance=0):
         # Assign values to the BankTransaction object's attributes
         self.transaction_id = BankTransaction.assign_transaction_id()
-        self.transaction_type = transaction_type
         self.transaction_date = utilities.get_current_date()
+        self.transaction_type = transaction_type
         self.transaction_amount = transaction_amount
         self.updated_balance = updated_balance
 
     def __str__(self):
         # Format the BankTransaction object into a print-friendly string
         return f"Transaction Id: {self.transaction_id} " \
-               f"Type: {self.transaction_type} " \
                f"Date: {self.transaction_date} " \
+               f"Type: {self.transaction_type} " \
                f"Amount: {utilities.format_currency(self.transaction_amount)} " \
                f"Updated Balance: {utilities.format_currency(self.updated_balance)} "
 
