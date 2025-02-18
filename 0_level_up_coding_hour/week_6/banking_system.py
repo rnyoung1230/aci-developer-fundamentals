@@ -18,8 +18,6 @@ class BankAccount:
     # Class variables and methods
     minimum_balance = 100
     assigned_account_numbers = []
-    transaction_types = ["Deposit", "Withdrawal", "Open Acct.", "Close Acct."]
-    account_status_types = ["Pending", "Active", "Closed"]
 
     @classmethod
     def assign_account_number(cls):
