@@ -1,6 +1,6 @@
 # Banking System
 import random
-import utilities
+import utilities # custom utility methods I created (utilities.py)
 
 class BankAccount:
     # Class variables and methods
