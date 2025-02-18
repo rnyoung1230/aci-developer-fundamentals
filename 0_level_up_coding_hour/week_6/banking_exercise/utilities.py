@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 def get_current_date():
     """
@@ -17,6 +17,29 @@ def get_current_date():
     """
     current_date = datetime.now()
     return current_date.strftime("%m-%d-%Y")
+
+def adjust_date(start_date, days_to_add):
+    """
+    Adds a specified number of days to a given date and returns the new date.
+
+    This function takes a start date in the format "MM-DD-YYYY" and adds a specified
+    number of days to it. The result is returned as a string in the same format.
+
+    Args:
+    start_date (str): A string representing the start date in the format "MM-DD-YYYY".
+    days_to_add (int): The number of days to add to the start date.
+
+    Returns:
+    str: A string representing the new date after adding the specified number of days,
+         in the format "MM-DD-YYYY".
+
+    Example:
+    >>> adjust_date("09-11-2023", 30)
+    '10-11-2023'  # Assuming the start date is September 11, 2023, adding 30 days results in October 11, 2023
+    """
+    date_obj = datetime.strptime(start_date, "%m-%d-%Y")
+    adjusted_date = date_obj + timedelta(days=days_to_add)
+    return adjusted_date.strftime("%m-%d-%Y")
 
 def format_currency(amount):
     """

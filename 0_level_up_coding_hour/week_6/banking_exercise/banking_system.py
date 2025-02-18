@@ -120,6 +120,7 @@ class BankAccount:
 class BankTransaction:
     # Class variables and methods
     transaction_id = 0
+    today = utilities.get_current_date()
 
     @classmethod
     def assign_transaction_id(cls):
@@ -131,7 +132,7 @@ class BankTransaction:
     def __init__(self, transaction_type=None, transaction_amount=0, updated_balance=0):
         # Assign values to the BankTransaction object's attributes
         self.transaction_id = BankTransaction.assign_transaction_id()
-        self.transaction_date = utilities.get_current_date()
+        self.transaction_date = BankTransaction.today
         self.transaction_type = transaction_type
         self.transaction_amount = transaction_amount
         self.updated_balance = updated_balance
@@ -150,12 +151,16 @@ bank_accounts = []
 
 for i in range(10):
     # Create a bunch of Checking accounts...execute deposit and withdrawal activities on each
+    BankTransaction.today = utilities.adjust_date(BankTransaction.today, -10)
     new_checking_account = BankAccount.open_account(account_type="Checking", opening_balance=250)
+    BankTransaction.today = utilities.adjust_date(BankTransaction.today, 5)
     new_checking_account.make_deposit(random.randint(500, 1000))
+    BankTransaction.today = utilities.adjust_date(BankTransaction.today, 2)
     new_checking_account.make_withdrawal(random.randint(100, 1000))
 
     # Arbitrarily pick some accounts to test the close method on
     if new_checking_account.account_balance < 250:
+        BankTransaction.today = utilities.get_current_date()
         new_checking_account.close_account()
 
     # Add each account to the bank_account list
@@ -164,12 +169,16 @@ for i in range(10):
 for i in range(10):
     # Create a bunch of Savings accounts...execute deposit and withdrawal activities on each
     #new_savings_account = BankAccount.open_account(account_type="Savings")
+    BankTransaction.today = utilities.adjust_date(BankTransaction.today, -10)
     new_savings_account = BankAccount.open_account()
+    BankTransaction.today = utilities.adjust_date(BankTransaction.today, 2)
     new_savings_account.make_deposit(random.randint(500, 1000))
+    BankTransaction.today = utilities.adjust_date(BankTransaction.today, 6)
     new_savings_account.make_withdrawal(random.randint(100, 1000))
 
     # Arbitrarily pick some accounts to test the close method on
     if new_savings_account.account_balance < 250:
+        BankTransaction.today = utilities.get_current_date()
         new_savings_account.close_account()
 
     # Add each account to the bank_account list
