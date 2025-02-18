@@ -154,8 +154,10 @@ for i in range(10):
     # Adjust the date between transaction types to make the history look more realistic/chronological in nature
     BankTransaction.today = utilities.adjust_date(BankTransaction.today, -10)
     new_checking_account = BankAccount.open_account(account_type="Checking", opening_balance=250)
+
     BankTransaction.today = utilities.adjust_date(BankTransaction.today, 5)
     new_checking_account.make_deposit(random.randint(500, 1000))
+
     BankTransaction.today = utilities.adjust_date(BankTransaction.today, 2)
     new_checking_account.make_withdrawal(random.randint(100, 1000))
 
@@ -173,8 +175,10 @@ for i in range(10):
     #new_savings_account = BankAccount.open_account(account_type="Savings")
     BankTransaction.today = utilities.adjust_date(BankTransaction.today, -10)
     new_savings_account = BankAccount.open_account()
+
     BankTransaction.today = utilities.adjust_date(BankTransaction.today, 2)
     new_savings_account.make_deposit(random.randint(500, 1000))
+
     BankTransaction.today = utilities.adjust_date(BankTransaction.today, 6)
     new_savings_account.make_withdrawal(random.randint(100, 1000))
 
