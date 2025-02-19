@@ -57,8 +57,11 @@ class BankAccount:
         # Retrieve a number that uniquely identifies the account
         account_num = BankAccount.get_account_number()
 
-        # Create a BankAccount object
-        new_account = BankAccount(account_num, account_type, from_factory=True)
+        # Create a Savings or BankAccount object
+        if account_type == "Savings":
+            new_account = SavingsAccount(account_num, account_type, from_factory=True)
+        else:
+            new_account = BankAccount(account_num, account_type, from_factory=True)
 
         # Create a BankTransaction object to memorialize opening the account, log it to transaction history
         open_account_transaction = BankTransaction("Open Acct.")
@@ -118,6 +121,18 @@ class BankAccount:
         # Append the event to the BankAccount object's transaction history
         self.transaction_history.append(transaction_record)
 
+class SavingsAccount(BankAccount):
+    # Class variables and methods
+    interest_rate = 2.5
+
+    # Instance variables and methods
+    def __init__(self, account_num=None, account_type=None, from_factory=False):
+        super().__init__(account_num, account_type, from_factory)
+        self.interest_rate = SavingsAccount.interest_rate
+
+    def __str__(self):
+        return super().__str__()
+
 class BankTransaction:
     # Class variables and methods
     transaction_id = 0
@@ -147,7 +162,7 @@ class BankTransaction:
                f"Updated Balance: {utilities.format_currency(self.updated_balance)} "
 
             ################################## TEST BANKING SYSTEM ##################################
-# Create a list to hold all the created accounts and their completed transactions
+#Create a list to hold all the created accounts and their completed transactions
 bank_accounts = []
 
 for i in range(10):
@@ -202,5 +217,14 @@ print("")
 print(f"Bank Accounts:\n {BankAccount.reserved_account_numbers}")
 print("----------------------------------------------------------------------")
 
-# Confirm error message if user tries to directly instantiate a bank account object
-new_bank_account = BankAccount()
+# Confirm error message if user tries to directly instantiate a BankAccount object
+bank_acct = BankAccount()
+# Confirm error message if user tries to directly instantiate a SavingsAccount object
+savings_acct = SavingsAccount()
+print("------------------------------------------------------------------------")
+
+# Confirm SavingsAccount subclass is working as expected
+savings_account = BankAccount.open_account("Savings")
+print(type(savings_account))
+print(repr(savings_account))
+print(savings_account)
