@@ -12,13 +12,15 @@ class Employee:
         self.email = email
         self.hire_date = hire_date
         self.posts = []
+        self.total_score = 0
 
     def __str__(self):
         return f"EMPLOYEE INFO\n" \
                f"Employee Id: {self.employee_id}\n" \
                f"Name: {self.name}\n" \
                f"Email: {self.email}\n" \
-               f"Hire Date: {self.hire_date}\n"
+               f"Hire Date: {self.hire_date}\n" \
+               f"Social Networking Score: {self.total_score}\n"
 
     def __repr__(self):
         """
@@ -32,13 +34,16 @@ class Employee:
         return cls.employee_id
 
     def post_message(self, message):
-        post = Post(message, self.name)
+        post = Post(self, message)
+        self.total_score += 5
         self.posts.append(post)
         return post
 
-    def post_comment(self, comment, post):
-        comment = Comment(comment, self.name)
+    def post_comment(self, comment, post, points=1):
+        comment = Comment(self, comment, post)
+        self.total_score += points
         post.comments.append(comment)
+        return comment
 
     def print_info(self, include_posts=False):
         if include_posts:
@@ -61,6 +66,14 @@ class Engineer(Employee):
     def __str__(self):
         return super().__str__() + f"Department: {self.department}\n"
 
+    def post_comment(self, comment, post, points=0):
+        if post.author.department == "Engineering":
+            points = 1
+        else:
+            points = 5
+
+        super().post_comment(comment, post, points)
+
 class Marketer(Employee):
     def __init__(self, name, email, hire_date):
         super().__init__(name, email, hire_date)
@@ -69,10 +82,18 @@ class Marketer(Employee):
     def __str__(self):
         return super().__str__() + f"Department: {self.department}\n"
 
+    def post_comment(self, comment, post, points=0):
+        if post.author.department == "Marketing":
+            points = 1
+        else:
+            points = 5
+
+        super().post_comment(comment, post, points)
+
 class Post:
     post_id = 0
 
-    def __init__(self, message, author):
+    def __init__(self, author, message):
         """
         Constructor method for Post class
         """
@@ -83,7 +104,7 @@ class Post:
 
     def __str__(self):
         return f"Post Id: {self.post_id}\n" \
-               f"{self.author}: " \
+               f"{self.author.name}: " \
                f"{self.message}"
 
     def __repr__(self):
@@ -103,13 +124,14 @@ class Post:
 class Comment:
     comment_id = 0
 
-    def __init__(self, comment, author):
+    def __init__(self, author, comment, post):
         self.comment_id = Comment.get_comment_id()
         self.author = author
         self.comment = comment
+        self.post = post
 
     def __str__(self):
-        return f"{self.author}: {self.comment}\n"
+        return f"{self.author.name}: {self.comment}\n"
 
     @classmethod
     def get_comment_id(cls):
@@ -136,11 +158,11 @@ e1.print_info(include_posts=True)
 e2.print_info()
 
 engineer_emp = Engineer("Ken O'Rourke", "korourke@gmail.com", "12-10-2024")
-print(engineer_emp)
-
 marketer_emp = Marketer("Jennifer Smith", "jennifer_smith@gmail.com", "09-07-2023")
+
 post_3 = marketer_emp.post_message("Hello, my name is Jen. I'm new to the Marketing team.")
 engineer_emp.post_comment("Nice to meet you Jen. I'm Ken.", post_3)
 marketer_emp.post_comment("Hi Ken. Let's do lunch sometime!", post_3)
-print(marketer_emp)
+
+engineer_emp.print_info()
 marketer_emp.print_info(include_posts=True)
