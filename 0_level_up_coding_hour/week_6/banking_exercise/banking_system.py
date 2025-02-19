@@ -57,11 +57,11 @@ class BankAccount:
         # Retrieve a number that uniquely identifies the account
         account_num = BankAccount.get_account_number()
 
-        # Create a Savings or BankAccount object
+        # Create a Savings or Checking account object
         if account_type == "Savings":
             new_account = SavingsAccount(account_num, account_type, from_factory=True)
         else:
-            new_account = BankAccount(account_num, account_type, from_factory=True)
+            new_account = CheckingAccount(account_num, account_type, from_factory=True)
 
         # Create a BankTransaction object to memorialize opening the account, log it to transaction history
         open_account_transaction = BankTransaction("Open Acct.")
@@ -133,6 +133,16 @@ class SavingsAccount(BankAccount):
     def __str__(self):
         return super().__str__()
 
+class CheckingAccount(BankAccount):
+    # Class variables and methods
+
+    # Instance variables and methods
+    def __init__(self, account_num=None, account_type=None, from_factory=False):
+        super().__init__(account_num, account_type, from_factory)
+
+    def __str__(self):
+        return super().__str__()
+
 class BankTransaction:
     # Class variables and methods
     transaction_id = 0
@@ -190,7 +200,7 @@ for i in range(10):
     # Adjust the date between transaction types to make the history look more realistic/chronological in nature
     #new_savings_account = BankAccount.open_account(account_type="Savings")
     BankTransaction.today = utilities.adjust_date(BankTransaction.today, -10)
-    new_savings_account = BankAccount.open_account()
+    new_savings_account = BankAccount.open_account() # Testing the default value for account_type in the constructor
 
     BankTransaction.today = utilities.adjust_date(BankTransaction.today, 2)
     new_savings_account.make_deposit(random.randint(500, 1000))
@@ -212,19 +222,29 @@ for account in bank_accounts:
 
 # Confirm assign_account_number is working (no duplicates)...list and set lengths should match
 account_numbers_set = set(BankAccount.reserved_account_numbers)
-print(f"Set length: {len(account_numbers_set)}, List length: {len(BankAccount.reserved_account_numbers)}")
+print(f"\nSet length: {len(account_numbers_set)}, List length: {len(BankAccount.reserved_account_numbers)}")
 print("")
 print(f"Bank Accounts:\n {BankAccount.reserved_account_numbers}")
 print("----------------------------------------------------------------------")
 
 # Confirm error message if user tries to directly instantiate a BankAccount object
+print("\nTrying to directly instantiate a BankAccount object...")
 bank_acct = BankAccount()
 # Confirm error message if user tries to directly instantiate a SavingsAccount object
+print("\nTrying to directly instantiate a SavingsAccount object...")
 savings_acct = SavingsAccount()
-print("------------------------------------------------------------------------")
+# Confirm error message if user tries to directly instantiate a CheckingAccount object
+print("\nTrying to directly instantiate a CheckingAccount object...")
+checking_acct = CheckingAccount()
+print("------------------------------------------------------------------------\n")
 
-# Confirm SavingsAccount subclass is working as expected
+# Confirm SavingsAccount and CheckingAccount subclasses are working as expected
 savings_account = BankAccount.open_account("Savings")
 print(type(savings_account))
 print(repr(savings_account))
 print(savings_account)
+print("")
+checking_account = BankAccount.open_account("Checking")
+print(type(checking_account))
+print(repr(checking_account))
+print(checking_account)
