@@ -40,6 +40,7 @@ class BankAccount:
         for record in self.transaction_history:
             transaction_history_display += ' '.join(f'{k}: {str(v).ljust(12, " ")}'
                                                     for k, v in record.items()) + '\n'
+            # transaction_history_display += str(record) + '\n' --> for debugging
 
         # Format the BankAccount object and its transaction history into a print-friendly string
         return f"\nBANK ACCOUNT SUMMARY\n" \
