@@ -4,8 +4,8 @@ import utilities # custom utility methods (from utilities.py)
 
 class BankAccount:
     # Class variables and methods
-    minimum_balance = 100
     reserved_account_numbers = []
+    minimum_balance = 0
 
     @classmethod
     def get_account_number(cls):
@@ -22,12 +22,12 @@ class BankAccount:
         return number
 
     # Instance variables and methods
-    def __init__(self, account_num=None, account_type=None, from_factory=False):
+    def __init__(self, account_type=None, from_factory=False):
         # If this constructor was called from the open_account() factory method, assign values to the BankAccount object's attributes
         if from_factory:
-            self.account_number = account_num
+            self.account_number = None
             self.account_type = account_type
-            self.account_status = "Active"
+            self.account_status = "Pending"
             self.account_balance = 0
             self.transaction_history = []
         else:
@@ -53,24 +53,32 @@ class BankAccount:
                f"------------------------------------------"
 
     @staticmethod
-    def open_account(account_type="Savings", opening_balance=minimum_balance):
-        # Retrieve a number that uniquely identifies the account
-        account_num = BankAccount.get_account_number()
-
+    def open_account(account_type=None, opening_balance=0):
         # Create a Savings or Checking account object
         if account_type == "Savings":
-            new_account = SavingsAccount(account_num, account_type, from_factory=True)
+            new_account = SavingsAccount(account_type, from_factory=True)
         else:
-            new_account = CheckingAccount(account_num, account_type, from_factory=True)
+            new_account = CheckingAccount(account_type, from_factory=True)
 
-        # Create a BankTransaction object to memorialize opening the account, log it to transaction history
-        open_account_transaction = BankTransaction("Open Acct.")
-        new_account.record_transaction(open_account_transaction)
+        if new_account.meets_min_balance_requirement(opening_balance):
+            # Retrieve a number that uniquely identifies the account
+            account_num = BankAccount.get_account_number()
+            # Update the account with the new number and status from "Pending" to "Active"
+            new_account.account_number = account_num
+            new_account.account_status = "Active"
 
-        # Make an initial deposit to satisfy the min. balance requirement
-        new_account.make_deposit(opening_balance)
+            # Create a BankTransaction object to memorialize opening the account, log it to transaction history
+            open_account_transaction = BankTransaction("Open Acct.")
+            new_account.record_transaction(open_account_transaction)
 
-        return new_account
+            # Make an initial deposit to satisfy the min. balance requirement
+            new_account.make_deposit(opening_balance)
+
+            return new_account
+
+        else:
+            print(f"You cannot open a {str(account_type).lower()} account with a balance "
+                  f"less than {utilities.format_currency(new_account.minimum_balance)}.")
 
     def close_account(self):
         # Update the account status
@@ -92,9 +100,8 @@ class BankAccount:
         self.record_transaction(deposit_transaction)
 
     def make_withdrawal(self, amount):
-        # Allow the withdrawal only if the account continues to meet the min. balance requirement OR
-        # the account is closing
-        if self.account_balance - amount >= BankAccount.minimum_balance or self.account_status == "Closed":
+        # Allow the withdrawal only if the account continues to meet the min. balance requirement OR is closed
+        if self.meets_min_balance_requirement(self.account_balance-amount) or self.is_closed():
 
             # Update the account balance
             self.account_balance -= amount
@@ -104,10 +111,11 @@ class BankAccount:
             self.record_transaction(withdrawal_transaction)
 
         else:
-            # Provide a reason for denying the withdrawal request
-            print(f"Insufficient funds for account number {self.account_number}. Withdrawal amount ({utilities.format_currency(amount)}) will cause your "
-                  f"account balance ({utilities.format_currency(self.account_balance)}) "
-                  f"to fall below the required minimum ({utilities.format_currency(BankAccount.minimum_balance)}).")
+
+            print(f"Insufficient funds for {str(self.account_type).lower()} account number {self.account_number}. "
+                   f"Withdrawal amount ({utilities.format_currency(amount)}) will cause your "
+                   f"account balance ({utilities.format_currency(self.account_balance)}) "
+                   f"to fall below the required minimum ({utilities.format_currency(self.minimum_balance)}).")
 
     def record_transaction(self, transaction):
         # Build a record to capture the event
@@ -121,24 +129,31 @@ class BankAccount:
         # Append the event to the BankAccount object's transaction history
         self.transaction_history.append(transaction_record)
 
+    def is_closed(self):
+        return self.account_status == "Closed"
+
+    def meets_min_balance_requirement(self, amount):
+        return amount >= self.minimum_balance
+
 class SavingsAccount(BankAccount):
     # Class variables and methods
+    minimum_balance = 100
     interest_rate = 2.5
 
     # Instance variables and methods
-    def __init__(self, account_num=None, account_type=None, from_factory=False):
-        super().__init__(account_num, account_type, from_factory)
-        self.interest_rate = SavingsAccount.interest_rate
+    def __init__(self, account_type=None, from_factory=False):
+        super().__init__(account_type, from_factory)
 
     def __str__(self):
         return super().__str__()
 
 class CheckingAccount(BankAccount):
     # Class variables and methods
+    minimum_balance = 250
 
     # Instance variables and methods
-    def __init__(self, account_num=None, account_type=None, from_factory=False):
-        super().__init__(account_num, account_type, from_factory)
+    def __init__(self, account_type=None, from_factory=False):
+        super().__init__(account_type, from_factory)
 
     def __str__(self):
         return super().__str__()
@@ -188,7 +203,7 @@ for i in range(10):
     new_checking_account.make_withdrawal(random.randint(100, 1000))
 
     # Arbitrarily pick some accounts to test the close method on
-    if new_checking_account.account_balance < 250:
+    if new_checking_account.account_balance < 350:
         BankTransaction.today = utilities.get_current_date()
         new_checking_account.close_account()
 
@@ -200,7 +215,7 @@ for i in range(10):
     # Adjust the date between transaction types to make the history look more realistic/chronological in nature
     #new_savings_account = BankAccount.open_account(account_type="Savings")
     BankTransaction.today = utilities.adjust_date(BankTransaction.today, -10)
-    new_savings_account = BankAccount.open_account() # Testing the default value for account_type in the constructor
+    new_savings_account = BankAccount.open_account("Savings", 100) # Testing the default value for account_type in the constructor
 
     BankTransaction.today = utilities.adjust_date(BankTransaction.today, 2)
     new_savings_account.make_deposit(random.randint(500, 1000))
@@ -209,7 +224,7 @@ for i in range(10):
     new_savings_account.make_withdrawal(random.randint(100, 1000))
 
     # Arbitrarily pick some accounts to test the close method on
-    if new_savings_account.account_balance < 250:
+    if new_savings_account.account_balance < 200:
         BankTransaction.today = utilities.get_current_date()
         new_savings_account.close_account()
 
@@ -239,12 +254,17 @@ checking_acct = CheckingAccount()
 print("------------------------------------------------------------------------\n")
 
 # Confirm SavingsAccount and CheckingAccount subclasses are working as expected
-savings_account = BankAccount.open_account("Savings")
+savings_account = BankAccount.open_account("Savings", 100)
 print(type(savings_account))
 print(repr(savings_account))
 print(savings_account)
 print("")
-checking_account = BankAccount.open_account("Checking")
+checking_account = BankAccount.open_account("Checking", 250)
 print(type(checking_account))
 print(repr(checking_account))
 print(checking_account)
+print("")
+
+# Confirm SavingsAccount and CheckingAccount cannot be opened without meeting min. balance requirement
+savings_account = BankAccount.open_account("Savings", 50)
+checking_account = BankAccount.open_account("Checking", 150)
