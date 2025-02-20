@@ -15,11 +15,11 @@ class Artist:
 
     def make_album(self, album_name=None, album_tracks=None):
         album = Album(self, album_name, album_tracks)
-        self.albums.append(album.name)
+        self.albums.append(album)
         return album
 
-    def record_track(self, name=None, number=0, length=0):
-        track = Track(name, number, length)
+    def record_track(self, track_name=None, number=0, length=0):
+        track = Track(self.name, track_name, number, length)
         return track
 
 class Album:
@@ -44,7 +44,8 @@ class Album:
 
 class Track:
     # Instance variables and methods
-    def __init__(self, track_name=None, track_number=0, track_length=0):
+    def __init__(self, artist=None, track_name=None, track_number=0, track_length=0):
+        self.artist = artist
         self.name = track_name
         self.number = track_number
         self.length = track_length
@@ -87,4 +88,4 @@ print(f"TESTING TRACK CREATION\n{'\n'.join(str(track) for track in tracks_a2)}")
 print(f"-------------------------------------------------------------\n")
 
 print(f"TESTING ARTIST SUMMARY\nArtist: {new_artist.name}"
-      f"\nAlbums:\n{'\n'.join(str(album) for album in new_artist.albums)}")
+      f"\nAlbums:\n{'\n'.join(f'{album.name} (Runtime: {album.runtime} minutes)' for album in new_artist.albums)}")
