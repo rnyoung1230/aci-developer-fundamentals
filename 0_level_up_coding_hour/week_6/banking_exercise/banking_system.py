@@ -215,7 +215,7 @@ for i in range(10):
     # Adjust the date between transaction types to make the history look more realistic/chronological in nature
     #new_savings_account = BankAccount.open_account(account_type="Savings")
     BankTransaction.today = utilities.adjust_date(BankTransaction.today, -10)
-    new_savings_account = BankAccount.open_account("Savings", 100) # Testing the default value for account_type in the constructor
+    new_savings_account = BankAccount.open_account("Savings", 100)
 
     BankTransaction.today = utilities.adjust_date(BankTransaction.today, 2)
     new_savings_account.make_deposit(random.randint(500, 1000))
@@ -256,12 +256,10 @@ print("------------------------------------------------------------------------\
 # Confirm SavingsAccount and CheckingAccount subclasses are working as expected
 savings_account = BankAccount.open_account("Savings", 100)
 print(type(savings_account))
-print(repr(savings_account))
 print(savings_account)
 print("")
 checking_account = BankAccount.open_account("Checking", 250)
 print(type(checking_account))
-print(repr(checking_account))
 print(checking_account)
 print("")
 
