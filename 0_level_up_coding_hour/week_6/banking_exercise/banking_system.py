@@ -100,11 +100,13 @@ class BankAccount:
         self.record_transaction(deposit_transaction)
 
     def make_withdrawal(self, amount):
-        # Allow the withdrawal only if the account continues to meet the min. balance requirement OR is closed
-        if self.meets_min_balance_requirement(self.account_balance-amount) or self.is_closed():
+        # Allow the withdrawal if the account's updated balance still meets the min. balance requirement OR account is closing
+        updated_balance = self.account_balance - amount
+
+        if self.meets_min_balance_requirement(updated_balance) or self.is_closed():
 
             # Update the account balance
-            self.account_balance -= amount
+            self.account_balance = updated_balance
 
             # Create a BankTransaction object to memorialize the withdrawal, log it to transaction history
             withdrawal_transaction = BankTransaction("Withdrawal", amount)
@@ -132,8 +134,8 @@ class BankAccount:
     def is_closed(self):
         return self.account_status == "Closed"
 
-    def meets_min_balance_requirement(self, amount):
-        return amount >= self.minimum_balance
+    def meets_min_balance_requirement(self, balance):
+        return balance >= self.minimum_balance
 
 class SavingsAccount(BankAccount):
     # Class variables and methods
