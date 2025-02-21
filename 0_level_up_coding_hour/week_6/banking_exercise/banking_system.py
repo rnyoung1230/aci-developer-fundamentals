@@ -121,13 +121,17 @@ class BankAccount:
 
     def record_transaction(self, transaction):
         # Build a record to capture the event, along with the updated account balance
+        # transaction_record = vars(transaction) # Returns the object as a dictionary (name-value pair)
+        # transaction_record["balance"] = utilities.format_currency(self.account_balance)
+
         transaction_record = {
-            "Date": transaction.transaction_date,
-            "Type": transaction.transaction_type,
-            "Amount": utilities.format_currency(transaction.transaction_amount),
+            "Date": transaction.date,
+            "Type": transaction.type,
+            "Amount": utilities.format_currency(transaction.amount),
             "Updated Balance" : utilities.format_currency(self.account_balance),
-            "Transaction ID": transaction.transaction_id
+            "Transaction ID": transaction.id
         }
+
         # Append the event to the BankAccount object's transaction history
         self.transaction_history.append(transaction_record)
 
@@ -174,17 +178,17 @@ class BankTransaction:
     # Instance variables and methods
     def __init__(self, transaction_type=None, transaction_amount=0):
         # Assign values to the BankTransaction object's attributes
-        self.transaction_id = BankTransaction.get_id()
-        self.transaction_date = BankTransaction.today
-        self.transaction_type = transaction_type
-        self.transaction_amount = transaction_amount
+        self.id = BankTransaction.get_id()
+        self.date = BankTransaction.today
+        self.type = transaction_type
+        self.amount = transaction_amount
 
     def __str__(self):
         # Format the BankTransaction object into a print-friendly string
-        return f"Transaction Id: {self.transaction_id} " \
-               f"Date: {self.transaction_date} " \
-               f"Type: {self.transaction_type} " \
-               f"Amount: {utilities.format_currency(self.transaction_amount)} "
+        return f"Transaction Id: {self.id} " \
+               f"Date: {self.date} " \
+               f"Type: {self.type} " \
+               f"Amount: {utilities.format_currency(self.amount)} "
 
             ################################## TEST BANKING SYSTEM ##################################
 #Create a list to hold all the created accounts and their completed transactions
