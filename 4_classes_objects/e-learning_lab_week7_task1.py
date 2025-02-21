@@ -66,8 +66,8 @@ tracks_a1.append(track_9)
 print(f"TESTING TRACK CREATION 1\n{'\n'.join(str(track) for track in tracks_a1)}")
 print(f"-------------------------------------------------------------\n")
 
-album_1 = new_artist.make_album("Purple Rain", tracks_a1)
-print(f"TESTING ALBUM CREATION 1\n{album_1}")
+a1 = new_artist.make_album("Purple Rain", tracks_a1)
+print(f"TESTING ALBUM CREATION 1\n{a1}")
 print(f"-------------------------------------------------------------\n")
 
 
@@ -80,8 +80,8 @@ tracks_a2.append(track_4)
 print(f"TESTING TRACK CREATION 2\n{'\n'.join(str(track) for track in tracks_a2)}")
 print(f"-------------------------------------------------------------\n")
 
-album_2 = new_artist.make_album("Diamonds and Pearls", tracks_a2)
-print(f"TESTING ALBUM CREATION 2\n{album_2}")
+a2 = new_artist.make_album("Diamonds and Pearls", tracks_a2)
+print(f"TESTING ALBUM CREATION 2\n{a2}")
 print(f"-------------------------------------------------------------\n")
 
 print(f"TESTING ARTIST SUMMARY - SHORT\nArtist: {new_artist.name}"
