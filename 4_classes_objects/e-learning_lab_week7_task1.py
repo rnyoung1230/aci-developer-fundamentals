@@ -1,7 +1,7 @@
 # e-learning Lab: Classes and Objects
 # ------------------------
 
-# Task 1: Create a music catalog
+# Task 1: Create a music catalog --> Practices this concept of using Associations
 
 class Artist:
     # Instance variables and methods
