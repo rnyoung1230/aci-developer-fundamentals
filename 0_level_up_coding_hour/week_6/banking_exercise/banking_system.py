@@ -6,6 +6,7 @@ class BankAccount:
     # Class variables and methods
     reserved_account_numbers = []
     minimum_balance = 0
+    annual_interest_rate = 0
 
     @classmethod
     def get_account_number(cls):
@@ -46,6 +47,7 @@ class BankAccount:
         return f"\nBANK ACCOUNT SUMMARY\n" \
                f"Acct. Number: {self.account_number}\n" \
                f"Type: {self.account_type}\n" \
+               f"Interest Rate: {self.annual_interest_rate}%\n" \
                f"Status: {self.account_status}\n" \
                f"Balance: {utilities.format_currency(self.account_balance)}\n" \
                f"\nTRANSACTION HISTORY\n" \
@@ -103,7 +105,7 @@ class BankAccount:
         # Allow the withdrawal if the account's updated balance still meets the min. balance requirement OR account is closing
         updated_balance = self.account_balance - amount
 
-        if self.meets_min_balance_requirement(updated_balance) or self.is_closed():
+        if self.account_balance - amount >= 0 or self.is_closed():
 
             # Update the account balance
             self.account_balance = updated_balance
@@ -115,9 +117,18 @@ class BankAccount:
         else:
 
             print(f"Insufficient funds for {str(self.account_type).lower()} account number {self.account_number}. "
-                   f"Withdrawal amount ({utilities.format_currency(amount)}) will cause your "
-                   f"account balance ({utilities.format_currency(self.account_balance)}) "
-                   f"to fall below the required minimum ({utilities.format_currency(self.minimum_balance)}).")
+                   f"Withdrawal amount ({utilities.format_currency(amount)}) is greater than your current "
+                  f"account balance ({utilities.format_currency(self.account_balance)}).")
+
+    def pay_monthly_interest(self):
+        if self.is_active() and self.meets_min_balance_requirement(self.account_balance):
+            # Calculate the amount of interest to pay
+            interest_amount = (self.account_balance * (self.annual_interest_rate/100)) / 12
+            # Update the account balance
+            self.account_balance += interest_amount
+            # Create a BankTransaction object to memorialize the interest credit, log it to transaction history
+            interest_credit_transaction = BankTransaction("Interest", interest_amount)
+            self.record_transaction(interest_credit_transaction)
 
     def record_transaction(self, transaction):
         # Build a record to capture the event, along with the updated account balance
@@ -138,13 +149,16 @@ class BankAccount:
     def is_closed(self):
         return self.account_status == "Closed"
 
+    def is_active(self):
+        return self.account_status == "Active"
+
     def meets_min_balance_requirement(self, balance):
         return balance >= self.minimum_balance
 
 class SavingsAccount(BankAccount):
     # Class variables and methods
     minimum_balance = 100
-    interest_rate = 2.5
+    annual_interest_rate = 2.5
 
     # Instance variables and methods
     def __init__(self, account_type=None, from_factory=False):
@@ -156,6 +170,7 @@ class SavingsAccount(BankAccount):
 class CheckingAccount(BankAccount):
     # Class variables and methods
     minimum_balance = 250
+    annual_interest_rate = 1.0
 
     # Instance variables and methods
     def __init__(self, account_type=None, from_factory=False):
@@ -176,7 +191,7 @@ class BankTransaction:
         return cls.transaction_id
 
     # Instance variables and methods
-    def __init__(self, transaction_type=None, transaction_amount=0):
+    def __init__(self, transaction_type=None, transaction_amount=0.0):
         # Assign values to the BankTransaction object's attributes
         self.id = BankTransaction.get_id()
         self.date = BankTransaction.today
@@ -207,9 +222,12 @@ for i in range(10):
     new_checking_account.make_withdrawal(random.randint(100, 1000))
 
     # Arbitrarily pick some accounts to test the close method on
-    if new_checking_account.account_balance < 350:
+    if new_checking_account.account_balance < 250:
         BankTransaction.today = utilities.get_current_date()
         new_checking_account.close_account()
+
+    BankTransaction.today = utilities.adjust_date(BankTransaction.today, 15)
+    new_checking_account.pay_monthly_interest()
 
     # Add each account to the bank_account list
     bank_accounts.append(new_checking_account)
@@ -228,9 +246,12 @@ for i in range(10):
     new_savings_account.make_withdrawal(random.randint(100, 1000))
 
     # Arbitrarily pick some accounts to test the close method on
-    if new_savings_account.account_balance < 200:
+    if new_savings_account.account_balance < 100:
         BankTransaction.today = utilities.get_current_date()
         new_savings_account.close_account()
+
+    BankTransaction.today = utilities.adjust_date(BankTransaction.today, 15)
+    new_savings_account.pay_monthly_interest()
 
     # Add each account to the bank_account list
     bank_accounts.append(new_savings_account)
