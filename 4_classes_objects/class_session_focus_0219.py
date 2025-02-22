@@ -45,29 +45,29 @@ class Cat(Animal):
         return f"{super().__repr__()[0:-1]}, breed={self.breed!r})"
 
 ###################################### TEST CODE ##########################################
-dog_1 = Dog("Murphy", 10, "Dachshund")
-print(dog_1)
-print(repr(dog_1))
-print("")
-
-dog_2 = Dog("Chipper", 2, "Schnoodle")
-print(dog_2)
-print(repr(dog_2))
-print("")
-
-
-cat_1 = Cat("Luna", 5, "Persian")
-print(cat_1)
-print(repr(cat_1))
-print("")
-
-cat_2 = Cat("Coco", 6, "Persian")
-print(cat_2)
-print(repr(cat_2))
-print("")
-
-animal = Animal("Zeus", 2)
-print(repr(animal))
+# dog_1 = Dog("Murphy", 10, "Dachshund")
+# print(dog_1)
+# print(repr(dog_1))
+# print("")
+#
+# dog_2 = Dog("Chipper", 2, "Schnoodle")
+# print(dog_2)
+# print(repr(dog_2))
+# print("")
+#
+#
+# cat_1 = Cat("Luna", 5, "Persian")
+# print(cat_1)
+# print(repr(cat_1))
+# print("")
+#
+# cat_2 = Cat("Coco", 6, "Persian")
+# print(cat_2)
+# print(repr(cat_2))
+# print("")
+#
+# animal = Animal("Zeus", 2)
+# print(repr(animal))
 
 
 ################################ Inheritance example #2 #############################################
@@ -123,25 +123,25 @@ class ElectricCar(Car):
 
 
 # Example usage
-# car1 = Car("Toyota", "Corolla", 2022, 50, 15000)
-# car2 = Car("Ford", "Mustang", 2023, 100, 5000)
-# car3 = ElectricCar("Tesla", "CyberTruck", 2024, 200, 20000, 84)
-#
-# print(car1)  # Using __str__
-# print(repr(car2))  # Using __repr__
-# print(car3)
-# print(repr(car3))
-#
-# print(car1.rent(5))
-# print(car2.rent(3))
-# print(car3.rent(7))
-#
-# print(car1.get_rental_info())
-# print(car2.get_rental_info())
-# print(car3.get_rental_info())
-#
-# print(car1.return_car(500))
-# print(car1.get_rental_info())
-#
-# print(car3.return_car(1000))
-# print(car3.get_rental_info())
+car1 = Car("Toyota", "Corolla", 2022, 50, 15000)
+car2 = Car("Ford", "Mustang", 2023, 100, 5000)
+car3 = ElectricCar("Tesla", "CyberTruck", 2024, 200, 20000, 84)
+
+print(car1)  # Using __str__
+print(repr(car2))  # Using __repr__
+print(car3)
+print(repr(car3))
+
+print(car1.rent(5))
+print(car2.rent(3))
+print(car3.rent(7))
+
+print(car1.get_rental_info())
+print(car2.get_rental_info())
+print(car3.get_rental_info())
+
+print(car1.return_car(500))
+print(car1.get_rental_info())
+
+print(car3.return_car(1000))
+print(car3.get_rental_info())

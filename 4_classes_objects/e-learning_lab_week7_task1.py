@@ -10,8 +10,12 @@ class Artist:
         self.albums = []
 
     def __str__(self):
-        return f"Artist Name: {self.name}\n" \
-               f"\nAlbums:\n{'\n'.join(str(album) for album in self.albums)}"
+        artist_info = f"Artist Name: {self.name}\n"
+
+        if len(self.albums) > 0:
+            artist_info += f"\nAlbums:\n{'\n'.join(str(album) for album in self.albums)}"
+
+        return artist_info
 
     def make_album(self, album_name=None, album_tracks=None):
         album = Album(self, album_name, album_tracks)
@@ -56,6 +60,7 @@ class Track:
 
             ################################ TEST CODE ################################
 new_artist = Artist("Prince")
+print(new_artist)
 
 tracks_a1 = []
 track_1 = new_artist.record_track("Let's Go Crazy", 1, 280)
