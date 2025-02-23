@@ -1,7 +1,7 @@
 # e-learning Lab: Classes and Objects
 # ------------------------
 
-# Task 1: Create a music catalog --> Practices this concept of using Associations
+# Task 1: Create a music catalog --> Practices using Associations
 
 class Artist:
     # Instance variables and methods
@@ -30,7 +30,7 @@ class Album:
     # Instance variables and methods
     def __init__(self, artist=None, album_name=None, album_tracks=None):
         self.name = album_name
-        self.artist = artist
+        self.artist = artist # Association
         self.tracks = album_tracks
 
         runtime = 0
@@ -42,13 +42,14 @@ class Album:
 
     def __str__(self):
         return f"Album Name: {self.name}\n" \
+               f"Artist: {self.artist.name}\n" \
                f"Total Runtime: {self.runtime} minutes\n" \
                f"\nTracks:\n{'\n'.join(str(track) for track in self.tracks)}\n"
 
 class Track:
     # Instance variables and methods
-    def __init__(self, artist=None, track_name=None, track_number=0, track_length=0):
-        self.artist = artist
+    def __init__(self, artist_name=None, track_name=None, track_number=0, track_length=0):
+        self.artist_name = artist_name
         self.name = track_name
         self.number = track_number
         self.length = track_length
