@@ -109,9 +109,12 @@ class Book:
                f"Borrower Name: {self.borrower_name}\n"
 
 #################################### TEST CODE ########################################
+# Create a library object
 library = Library("Madison Public Library")
 print(library)
 
+# Create some book objects and add to the library object's inventory
+# Print the return message confirming the add was successful
 book_1 = Book("The Catcher in the Rye", "J. D. Salinger")
 #print(f"BOOK 1\n{book_1}")
 print(library.add_book_to_inventory(book_1))
@@ -123,20 +126,29 @@ print(library.add_book_to_inventory(book_2))
 book_3 = Book("War and Peace", "Leo Tolstoy")
 #print(f"BOOK 3\n{book_3}")
 print(library.add_book_to_inventory(book_3))
+
+# Print details of library object showing the added books and total inventory count
 print(library)
 
+# Test borrow_book function and print library object showing the updated borrower and is_borrowed fields
 print(library.borrow_book("Great Expectations", "Robert Young"))
 print("")
 print(library)
 
+# Test borrow_book function for when a book is already checked out
 print(library.borrow_book("Great Expectations", "Robert Young"))
+
+# Test return_book function and print library object showing the updated borrower and is_borrowed fields
 print(library.return_book("Great Expectations", "Robert Young"))
 print("")
 print(library)
 
+# Test the remove_book function and confirm successful message is printed
 print(library.remove_book("The Catcher in the Rye"))
 print("")
+# Print the library object showing the removed book is no longer displayed as part of inventory
 print(library)
 
+# Test removing and borrowing a book that isn't in the library's inventory...should get a not found message
 print(library.remove_book("The Great Gatsby"))
 print(library.borrow_book("The Odyssey", "Tim Gies"))
