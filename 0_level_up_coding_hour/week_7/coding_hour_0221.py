@@ -31,16 +31,20 @@ class Library:
             for book in self.book_inventory:
                 book_inventory_display += f"{str(book)}\n"
 
-        return f"Library Name: {self.name}\n" \
+        return f"\nLibrary Name: {self.name}\n" \
                f"\nBook Inventory ({self.total_books} books):\n{book_inventory_display}\n"
 
     def add_book_to_inventory(self, book):
         self.book_inventory.append(book)
         self.total_books += 1
+        print(f"{book.title} has been added from {self.name}'s inventory.")
 
-    def remove_book(self, book):
-        self.book_inventory.remove(book)
-        self.total_books -= 1
+    def remove_book(self, book_title):
+        for book in self.book_inventory:
+            if book.title is book_title:
+                self.book_inventory.remove(book)
+                self.total_books -= 1
+                print(f"{book_title} has been removed from {self.name}'s inventory.")
 
     def borrow_book(self, book_title, borrower_name):
         for book in self.book_inventory:
@@ -116,5 +120,9 @@ print("")
 print(library)
 library.borrow_book("Great Expectations", "Robert Young")
 library.return_book("Great Expectations", "Robert Young")
+print("")
+print(library)
+
+library.remove_book("The Catcher in the Rye")
 print("")
 print(library)
