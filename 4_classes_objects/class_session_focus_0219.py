@@ -11,7 +11,7 @@ class Animal:
         self.age = age
 
     def __str__(self):
-        return f"My pet is {self.age} years old and it's name is {self.name}."
+        return f"I have a {self.age} year old {str(self.__class__.__name__).lower()} named {self.name}."
 
     def __repr__(self):
         return f"Object representation: {self.__class__.__name__}(name={self.name!r}, age={self.age})"
@@ -26,7 +26,7 @@ class Dog(Animal):
         self.breed = breed
 
     def __str__(self):
-        return f"{super().__str__()} It is a {str(self.breed).lower()}."
+        return f"{super().__str__()} It's a {str(self.breed).lower()}."
 
     def __repr__(self):
         # [0:-1] strips off last ) so additional attributes can be added
@@ -39,7 +39,7 @@ class Cat(Animal):
         self.breed = breed
 
     def __str__(self):
-        return f"{super().__str__()} It is a {str(self.breed).lower()}."
+        return f"{super().__str__()} It's a {str(self.breed).lower()}."
 
     def __repr__(self):
         return f"{super().__repr__()[0:-1]}, breed={self.breed!r})"
