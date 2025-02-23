@@ -31,7 +31,7 @@ class Album:
     def __init__(self, artist=None, album_name=None, album_tracks=None):
         self.name = album_name
         self.artist = artist # Association
-        self.tracks = album_tracks
+        self.tracks = []
 
         runtime = 0
         if album_tracks is not None:
