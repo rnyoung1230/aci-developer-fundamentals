@@ -54,12 +54,13 @@ class Library:
         message = f"{book_title} was not found."
 
         for book in self.book_inventory:
-            if book.title is book_title and book.is_borrowed:
-                message = f"{book.title} is currently checked out to {book.borrower_name}."
-            elif book.title is book_title:
-                book.is_borrowed = True
-                book.borrower_name = borrower_name
-                message =  f"{borrower_name} has checked out {book_title}."
+            if book.title is book_title:
+                if book.is_borrowed:
+                    message = f"{book.title} is currently checked out to {book.borrower_name}."
+                else:
+                    book.is_borrowed = True
+                    book.borrower_name = borrower_name
+                    message =  f"{borrower_name} has checked out {book_title}."
 
         return message
 
