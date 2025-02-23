@@ -14,7 +14,7 @@ class Animal:
         return f"My pet is {self.age} years old and it's name is {self.name}."
 
     def __repr__(self):
-        return f"Object representation: {type(self)}(name={self.name!r}, age={self.age})"
+        return f"Object representation: {self.__class__.__name__}(name={self.name!r}, age={self.age})"
 
     def speak(self):
         pass
@@ -45,29 +45,33 @@ class Cat(Animal):
         return f"{super().__repr__()[0:-1]}, breed={self.breed!r})"
 
 ###################################### TEST CODE ##########################################
-# dog_1 = Dog("Murphy", 10, "Dachshund")
-# print(dog_1)
-# print(repr(dog_1))
-# print("")
-#
-# dog_2 = Dog("Chipper", 2, "Schnoodle")
-# print(dog_2)
-# print(repr(dog_2))
-# print("")
-#
-#
-# cat_1 = Cat("Luna", 5, "Persian")
-# print(cat_1)
-# print(repr(cat_1))
-# print("")
-#
-# cat_2 = Cat("Coco", 6, "Persian")
-# print(cat_2)
-# print(repr(cat_2))
-# print("")
-#
-# animal = Animal("Zeus", 2)
-# print(repr(animal))
+dog_1 = Dog("Murphy", 10, "Dachshund")
+print(dog_1)
+print(repr(dog_1))
+print("")
+
+dog_2 = Dog("Chipper", 2, "Schnoodle")
+print(dog_2)
+print(repr(dog_2))
+print("")
+
+dog_3 = Dog(name='Sam', age=5, breed='Great Dane')
+print(dog_3)
+print(repr(dog_3))
+print("")
+
+cat_1 = Cat("Luna", 5, "Persian")
+print(cat_1)
+print(repr(cat_1))
+print("")
+
+cat_2 = Cat("Coco", 6, "Persian")
+print(cat_2)
+print(repr(cat_2))
+print("")
+
+animal = Animal("Zeus", 2)
+print(repr(animal))
 
 
 ################################ Inheritance example #2 #############################################
