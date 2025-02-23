@@ -22,22 +22,25 @@ class Library:
     def __init__(self, name):
         self.name = name
         self.book_inventory = []
+        self.total_books = 0
 
     def __str__(self):
-        book_inventory_display = 'None'
+        book_inventory_display = ''
 
         if len(self.book_inventory) > 0:
             for book in self.book_inventory:
                 book_inventory_display += f"{str(book)}\n"
 
         return f"Library Name: {self.name}\n" \
-               f"\nBook Inventory:\n{book_inventory_display}\n"
+               f"\nBook Inventory ({self.total_books} books):\n{book_inventory_display}\n"
 
     def add_book_to_inventory(self, book):
         self.book_inventory.append(book)
+        self.total_books += 1
 
     def remove_book(self, book):
         self.book_inventory.remove(book)
+        self.total_books -= 1
 
     def borrow_book(self, book_title, borrower_name):
         for book in self.book_inventory:
