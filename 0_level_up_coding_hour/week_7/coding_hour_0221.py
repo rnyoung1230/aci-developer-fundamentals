@@ -37,30 +37,42 @@ class Library:
     def add_book_to_inventory(self, book):
         self.book_inventory.append(book)
         self.total_books += 1
-        print(f"{book.title} has been added from {self.name}'s inventory.")
+        return f"{book.title} has been added from {self.name}'s inventory."
 
     def remove_book(self, book_title):
+        message = f"{book_title} was not found."
+
         for book in self.book_inventory:
             if book.title is book_title:
                 self.book_inventory.remove(book)
                 self.total_books -= 1
-                print(f"{book_title} has been removed from {self.name}'s inventory.")
+                message = f"{book_title} has been removed from {self.name}'s inventory."
+
+        return message
 
     def borrow_book(self, book_title, borrower_name):
+        message = f"{book_title} was not found."
+
         for book in self.book_inventory:
             if book.title is book_title and book.is_borrowed:
-                print(f"{book.title} is currently checked out to {book.borrower_name}.")
+                message = f"{book.title} is currently checked out to {book.borrower_name}."
             elif book.title is book_title:
                 book.is_borrowed = True
                 book.borrower_name = borrower_name
-                print(f"{borrower_name} has checked out {book_title}.")
+                message =  f"{borrower_name} has checked out {book_title}."
+
+        return message
 
     def return_book(self, book_title, borrower_name):
+        message = f"{book_title} was not found."
+
         for book in self.book_inventory:
             if book.title is book_title and book.is_borrowed:
                 book.is_borrowed = False
                 book.borrower_name = None
-                print(f"{borrower_name} has returned {book_title}.")
+                message = f"{borrower_name} has returned {book_title}."
+
+        return message
 
 class Book:
     # class variables and methods
@@ -102,27 +114,29 @@ print(library)
 
 book_1 = Book("The Catcher in the Rye", "J. D. Salinger")
 #print(f"BOOK 1\n{book_1}")
-library.add_book_to_inventory(book_1)
+print(library.add_book_to_inventory(book_1))
 
 book_2 = Book("Great Expectations", "Charles Dickens")
 #print(f"BOOK 2\n{book_2}")
-library.add_book_to_inventory(book_2)
+print(library.add_book_to_inventory(book_2))
 
 book_3 = Book("War and Peace", "Leo Tolstoy")
 #print(f"BOOK 3\n{book_3}")
-library.add_book_to_inventory(book_3)
+print(library.add_book_to_inventory(book_3))
+print(library)
 
-print(library)
-# library.remove_book(book_2)
-# print(library)
-library.borrow_book("Great Expectations", "Robert Young")
-print("")
-print(library)
-library.borrow_book("Great Expectations", "Robert Young")
-library.return_book("Great Expectations", "Robert Young")
+print(library.borrow_book("Great Expectations", "Robert Young"))
 print("")
 print(library)
 
-library.remove_book("The Catcher in the Rye")
+print(library.borrow_book("Great Expectations", "Robert Young"))
+print(library.return_book("Great Expectations", "Robert Young"))
 print("")
 print(library)
+
+print(library.remove_book("The Catcher in the Rye"))
+print("")
+print(library)
+
+print(library.remove_book("The Great Gatsby"))
+print(library.borrow_book("The Odyssey", "Tim Gies"))
