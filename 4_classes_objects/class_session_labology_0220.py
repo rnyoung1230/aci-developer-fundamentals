@@ -3,40 +3,40 @@
 
 # Associations and Inheritance
 
-# class Car:
-#
-#     def __init__(self, make, model, year, color):
-#         self.make = make
-#         self.model = model
-#         self.year = year
-#         self.color = color
-#         self.miles_traveled = 0
-#
-#     def move_forward(self, miles):
-#         pass
-#
-#     def read_miles(self):
-#         pass
-#
-#     def info(self):
-#         pass
-#
-#     def fill_gas(self):
-#         pass
-#
-# class ElectricCar:
-#
-#     def __init__(self, car, battery):
-#         self.car = car
-#         self.battery = battery
-#
-#
+class Car:
+
+    def __init__(self, make, model, year, color):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.color = color
+        self.miles_traveled = 0
+
+    def move_forward(self, miles):
+        pass
+
+    def read_miles(self):
+        pass
+
+    def info(self):
+        pass
+
+    def fill_gas(self):
+        pass
+
+class ElectricCar:
+
+    def __init__(self, car, battery):
+        self.car = car
+        self.battery = battery
+
+
 # ################################## TESTING CODE #########################################
 #
 # car_1 = Car("Toyota", "4-Runner", 2024, "Black")
 # electric_car_1 = ElectricCar(car_1, 120)  #kilowatt hours (120 kWh)
 
-# Music Catalog exercise
+# Lab Task 1:  Music Catalog exercise
 
 class Artist:
     def __init__(self, artist_name):
@@ -106,31 +106,33 @@ class Track:
                 f'(track_name={self.name!r}, track_number={self.number}, length={self.length})')
 
 ################################# TEST CODE ###########################################
-
-artist_1 = Artist("Prince")
+#
+# artist_1 = Artist("Prince")
+# # print(repr(artist_1))
+# # print(artist_1)
+# # print("-------------------------------------------------\n")
+#
+# album_1 = artist_1.make_album("Purple Rain")
+# # print(artist_1)
+# # print("-------------------------------------------------\n")
+#
+# album_1.add_track("Let's Go Crazy", 1, 280)
+# album_1.add_track("Purple Rain", 9, 521)
+# print("")
+# print(repr(album_1))
+# print(album_1)
+# print("-------------------------------------------------\n")
+#
+# album_2 = artist_1.make_album("Diamonds and Pearls")
+#
+# album_2.add_track("Diamonds and Pearls", 3, 285)
+# album_2.add_track("Cream", 4, 253)
+# print("")
+# print(repr(album_2))
+# print(album_2)
+# print("-------------------------------------------------\n")
+#
 # print(repr(artist_1))
 # print(artist_1)
-# print("-------------------------------------------------\n")
 
-album_1 = artist_1.make_album("Purple Rain")
-# print(artist_1)
-# print("-------------------------------------------------\n")
-
-album_1.add_track("Let's Go Crazy", 1, 280)
-album_1.add_track("Purple Rain", 9, 521)
-print("")
-print(repr(album_1))
-print(album_1)
-print("-------------------------------------------------\n")
-
-album_2 = artist_1.make_album("Diamonds and Pearls")
-
-album_2.add_track("Diamonds and Pearls", 3, 285)
-album_2.add_track("Cream", 4, 253)
-print("")
-print(repr(album_2))
-print(album_2)
-print("-------------------------------------------------\n")
-
-print(repr(artist_1))
-print(artist_1)
+# Lab Task 2:  Bank Account exercise
