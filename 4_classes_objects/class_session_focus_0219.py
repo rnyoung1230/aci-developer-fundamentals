@@ -87,7 +87,7 @@ class Car:
         self.mileage_at_rent = None
 
     def __repr__(self):
-        return f"Car(make='{self.make}', model='{self.model}', year={self.year}, rate=${self.daily_rate}, mileage={self.mileage})"
+        return f"{self.__class__.__name__}(make='{self.make}', model='{self.model}', year={self.year}, rate=${self.daily_rate}, mileage={self.mileage})"
 
     def __str__(self):
         status = "currently rented" if self.rented else "available"
@@ -116,20 +116,20 @@ class Car:
         return f"This {self.make} {self.model} is currently rented. Mileage at rent: {self.mileage_at_rent} miles."
 
 
-class ElectricCar(Car):
+class ElectricVehicle(Car):
     def __init__(self, make, model, year, rate, mileage, battery):
         super().__init__(make, model, year, rate, mileage)
         # or Car.__init__(self, make, model, year, rate, mileage)
         self.battery = battery
 
     def __repr__(self):
-        return f'Electric{super().__repr__()[0:-1]} battery={self.battery})'
+        return f'{super().__repr__()[0:-1]} battery={self.battery})'
 
 
 # Example usage
 car1 = Car("Toyota", "Corolla", 2022, 50, 15000)
 car2 = Car("Ford", "Mustang", 2023, 100, 5000)
-car3 = ElectricCar("Tesla", "CyberTruck", 2024, 200, 20000, 84)
+car3 = ElectricVehicle("Tesla", "CyberTruck", 2024, 200, 20000, 84)
 
 print(car1)  # Using __str__
 print(repr(car2))  # Using __repr__
