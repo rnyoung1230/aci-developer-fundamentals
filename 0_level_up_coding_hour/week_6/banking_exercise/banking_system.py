@@ -93,31 +93,29 @@ class BankAccount:
         close_account_transaction = BankTransaction("Close Acct.")
         self.record_transaction(close_account_transaction)
 
-    def make_deposit(self, amount):
+    def make_deposit(self, deposit_amount):
         # Update the account balance
-        self.account_balance += amount
+        self.account_balance += deposit_amount
 
         # Create a BankTransaction object to memorialize the deposit, log it to transaction history
-        deposit_transaction = BankTransaction("Deposit", amount)
+        deposit_transaction = BankTransaction("Deposit", deposit_amount)
         self.record_transaction(deposit_transaction)
 
-    def make_withdrawal(self, amount):
+    def make_withdrawal(self, withdrawal_amount):
         # Allow the withdrawal if the account's updated balance still meets the min. balance requirement OR account is closing
-        updated_balance = self.account_balance - amount
-
-        if self.account_balance - amount >= 0 or self.is_closed():
+        if self.account_balance - withdrawal_amount >= 0 or self.is_closed():
 
             # Update the account balance
-            self.account_balance = updated_balance
+            self.account_balance -= withdrawal_amount
 
             # Create a BankTransaction object to memorialize the withdrawal, log it to transaction history
-            withdrawal_transaction = BankTransaction("Withdrawal", amount)
+            withdrawal_transaction = BankTransaction("Withdrawal", withdrawal_amount)
             self.record_transaction(withdrawal_transaction)
 
         else:
 
             print(f"Insufficient funds for {str(self.account_type).lower()} account number {self.account_number}. "
-                   f"Withdrawal amount ({utilities.format_currency(amount)}) is greater than your current "
+                   f"Withdrawal amount ({utilities.format_currency(withdrawal_amount)}) is greater than your current "
                   f"account balance ({utilities.format_currency(self.account_balance)}).")
 
     def pay_monthly_interest(self):
