@@ -103,7 +103,7 @@ class BankAccount:
 
     def make_withdrawal(self, withdrawal_amount):
         # Allow the withdrawal as long as it doesn't result in an overdraft OR the account is closing
-        if not self.is_overdrawn(withdrawal_amount) or self.is_closed():
+        if self.has_sufficient_funds(withdrawal_amount) or self.is_closed():
 
             # Update the account balance
             self.account_balance -= withdrawal_amount
@@ -120,6 +120,7 @@ class BankAccount:
 
     def pay_monthly_interest(self):
         if self.is_active() and self.meets_min_balance_requirement(self.account_balance):
+
             # Calculate the amount of interest to pay
             interest_amount = (self.account_balance * (self.annual_interest_rate/100)) / 12
             # Update the account balance
@@ -153,8 +154,11 @@ class BankAccount:
     def meets_min_balance_requirement(self, balance):
         return balance >= self.minimum_balance
 
-    def is_overdrawn(self, amount):
-        return self.account_balance - amount < 0
+    def is_overdrawn(self):
+        return self.account_balance < 0
+
+    def has_sufficient_funds(self, amount):
+        return self.account_balance - amount >= 0
 
 class SavingsAccount(BankAccount):
     # Class variables and methods
