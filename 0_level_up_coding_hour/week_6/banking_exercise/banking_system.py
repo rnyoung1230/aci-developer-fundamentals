@@ -102,8 +102,8 @@ class BankAccount:
         self.record_transaction(deposit_transaction)
 
     def make_withdrawal(self, withdrawal_amount):
-        # Allow the withdrawal if the account's updated balance still meets the min. balance requirement OR account is closing
-        if self.account_balance - withdrawal_amount >= 0 or self.is_closed():
+        # Allow the withdrawal as long as it doesn't result in an overdraft OR the account is closing
+        if not self.is_overdrawn(withdrawal_amount) or self.is_closed():
 
             # Update the account balance
             self.account_balance -= withdrawal_amount
@@ -152,6 +152,9 @@ class BankAccount:
 
     def meets_min_balance_requirement(self, balance):
         return balance >= self.minimum_balance
+
+    def is_overdrawn(self, amount):
+        return self.account_balance - amount < 0
 
 class SavingsAccount(BankAccount):
     # Class variables and methods
@@ -219,8 +222,8 @@ for i in range(10):
     BankTransaction.today = utilities.adjust_date(BankTransaction.today, 2)
     new_checking_account.make_withdrawal(random.randint(100, 1000))
 
-    # Arbitrarily pick some accounts to test the close method on
-    if new_checking_account.account_balance < 250:
+    # Close any accounts that no longer meet the min. balance requirement
+    if not new_checking_account.meets_min_balance_requirement(new_checking_account.account_balance):
         BankTransaction.today = utilities.get_current_date()
         new_checking_account.close_account()
 
@@ -243,8 +246,8 @@ for i in range(10):
     BankTransaction.today = utilities.adjust_date(BankTransaction.today, 6)
     new_savings_account.make_withdrawal(random.randint(100, 1000))
 
-    # Arbitrarily pick some accounts to test the close method on
-    if new_savings_account.account_balance < 100:
+    # Close any accounts that no longer meet the min. balance requirement
+    if not new_savings_account.meets_min_balance_requirement(new_savings_account.account_balance):
         BankTransaction.today = utilities.get_current_date()
         new_savings_account.close_account()
 
