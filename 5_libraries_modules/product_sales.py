@@ -25,6 +25,19 @@ class Sales:
 
         self.sales_data.append(sale)
 
+    def __iter__(self):
+        self.index = 0
+        return self
+
+    def __next__(self):
+        if self.index >= len(self.sales_data):
+            raise StopIteration
+        name = self.sales_data[self.index]["product"].name
+        quantity = self.sales_data[self.index]["quantity_sold"]
+        sale = f"You sold {quantity} of {name}."
+        self.index += 1
+        return sale
+
     def generate_report(self):
         aggregated_sales_info = {}
         aggregated_sales_info_display = ""
@@ -53,32 +66,43 @@ class Sales:
                                      f"Unit Price: {str(utilities.format_currency(v[1])).ljust(8, " ")}"
                                      f"Revenue: {str(utilities.format_currency(v[2])).ljust(8, " ")}") + '\n'
 
-        report = f"\nPRODUCT SALES SUMMARY\n" \
+        report = f"PRODUCT SALES SUMMARY\n" \
                f"Total Sales Revenue: {utilities.format_currency(total_sales_revenue)}\n" \
                f"\nSALE DETAILS\n" \
                f"{aggregated_sales_info_display}\n" \
-               f"------------------------------------------"
+               f"----------------------------------------------------------------------------"
 
         return report
 
 ########################## TEST CODE ##########################
 
-# Create some product objects
-prod1 = Product("WidgetA", 10.99, 100)
-prod2 = Product("WidgetB", 19.99, 50)
-prod3 = Product("WidgetC", 7.99, 150)
-prod4 = Product("WidgetD", 3.99, 500)
+def test_cases():
+    # Create some product objects
+    print("***************** TESTING THE OBJECT CREATION AND REPORT GENERATION *****************")
+    prod1 = Product("WidgetA", 10.99, 100)
+    prod2 = Product("WidgetB", 19.99, 50)
+    prod3 = Product("WidgetC", 7.99, 150)
+    prod4 = Product("WidgetD", 3.99, 500)
 
-# Create a sales object
-sales = Sales()
-sales.add_sale(prod1, 15)
-sales.add_sale(prod2, 30)
-sales.add_sale(prod3, 45)
-sales.add_sale(prod1, 30)
-sales.add_sale(prod4, 100)
+    # Create a sales object
+    sales = Sales()
+    sales.add_sale(prod1, 15)
+    sales.add_sale(prod2, 30)
+    sales.add_sale(prod3, 45)
+    sales.add_sale(prod1, 30)
+    sales.add_sale(prod4, 100)
 
-print(sales.generate_report())
+    print(sales.generate_report())
+    print("")
 
+    # Test the __iter__() and __next__() methods
+    print("***************** TESTING THE ITERATOR *****************")
+    sales_iter = iter(sales)
+    for i in sales_iter:
+        print(i)
+
+if __name__ == '__main__':
+    test_cases()
 
 
 
