@@ -26,8 +26,8 @@ class Sales:
         self.sales_data.append(sale)
 
     def generate_report(self):
-        sales_info = {}
-        sales_info_display = ""
+        aggregated_sales_info = {}
+        aggregated_sales_info_display = ""
         total_sales_revenue = 0
 
         # Unpack the list of sales items and format them into a line-by-line item display
@@ -36,19 +36,19 @@ class Sales:
             quantity_sold = sale.get("quantity_sold")
             product_revenue = product.price * quantity_sold
 
-            if product.name in sales_info:
-                details = sales_info.get(product.name)
+            if product.name in aggregated_sales_info:
+                details = aggregated_sales_info.get(product.name)
                 details[0] += quantity_sold
                 details[2] += product_revenue
-                sales_info.update({product.name: details})
+                aggregated_sales_info.update({product.name: details})
             else:
-                sales_info[product.name] = [quantity_sold, product.price, product_revenue]
+                aggregated_sales_info[product.name] = [quantity_sold, product.price, product_revenue]
 
             total_sales_revenue += product_revenue
 
-        for k, v in sales_info.items():
+        for k, v in aggregated_sales_info.items():
 
-            sales_info_display += ''.join(f"Product: {str(k).ljust(12, " ")}"
+            aggregated_sales_info_display += ''.join(f"Product: {str(k).ljust(12, " ")}"
                                      f"Units Sold: {str(v[0]).ljust(6, " ")}"
                                      f"Unit Price: {str(utilities.format_currency(v[1])).ljust(8, " ")}"
                                      f"Revenue: {str(utilities.format_currency(v[2])).ljust(8, " ")}") + '\n'
@@ -56,30 +56,30 @@ class Sales:
         report = f"\nPRODUCT SALES SUMMARY\n" \
                f"Total Sales Revenue: {utilities.format_currency(total_sales_revenue)}\n" \
                f"\nSALE DETAILS\n" \
-               f"{sales_info_display}\n" \
+               f"{aggregated_sales_info_display}\n" \
                f"------------------------------------------"
 
-        print(report)
+        return report
 
 ########################## TEST CODE ##########################
 
 # Create some product objects
-product_1 = Product("Widget A", 1.25, 20)
-print(product_1)
-
-product_2 = Product("Widget B", 2.50, 10)
-print(product_2)
-
-product_3 = Product("Widget C", 5.00, 5)
-print(product_3)
+prod1 = Product("WidgetA", 10.99, 100)
+prod2 = Product("WidgetB", 19.99, 50)
+prod3 = Product("WidgetC", 7.99, 150)
+prod4 = Product("WidgetD", 3.99, 500)
 
 # Create a sales object
 sales = Sales()
-sales.add_sale(product_1, 10)
-sales.add_sale(product_1, 2)
-sales.add_sale(product_2, 2)
-sales.add_sale(product_3, 3)
+sales.add_sale(prod1, 15)
+sales.add_sale(prod2, 30)
+sales.add_sale(prod3, 45)
+sales.add_sale(prod1, 30)
+sales.add_sale(prod4, 100)
 
-sales.generate_report()
+print(sales.generate_report())
+
+
+
 
 
