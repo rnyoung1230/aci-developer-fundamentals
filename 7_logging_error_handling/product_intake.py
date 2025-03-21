@@ -9,7 +9,7 @@ import json
 logging.basicConfig(filename="prod_validation.log", filemode="w", level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
 # Now, add a function named parse_products that takes a file_path parameter.
-# Write your function so that it meets the following criteria outlined in the # TODO comments in the following code.
+# Write your function so that it meets the following criteria outlined in the following code.
 
 def parse_products(file_path):
     try:
