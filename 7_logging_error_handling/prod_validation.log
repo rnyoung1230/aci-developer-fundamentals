@@ -1,0 +1,4 @@
+2025-03-21 11:43:03,194 ERROR Product missing required field: price
+2025-03-21 11:43:03,194 INFO Added product to inventory: Product2
+2025-03-21 11:43:03,194 ERROR Product missing required field: name
+2025-03-21 11:43:03,194 INFO Added product to inventory: Product4

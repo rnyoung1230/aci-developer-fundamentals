@@ -1,0 +1,10 @@
+DEBUG:root:This is a DEBUG message.
+INFO:root:This is a INFO message.
+WARNING:root:This is a WARNING message.
+ERROR:root:This is a ERROR message.
+CRITICAL:root:This is a CRITICAL message.
+2025-03-21 08:56:37,474 DEBUG This is a DEBUG message.
+2025-03-21 08:56:37,474 INFO This is a INFO message.
+2025-03-21 08:56:37,474 WARNING This is a WARNING message.
+2025-03-21 08:56:37,474 ERROR This is a ERROR message.
+2025-03-21 08:56:37,474 CRITICAL This is a CRITICAL message.
