@@ -43,35 +43,36 @@
 # Software Development Kits (SDKs)
 # -----------------------------------------------
 # Using boto3 with Amazon EC2
-import boto3
-
-# Create EC2 client object
-ec2 = boto3.client('ec2')
-
-# Retrieve information about instances
-response = ec2.describe_instances()
-
-# Get the list of instances
-instances = response['Reservations'][0]['Instances']
-
-# Loop over each instance
-for instance in instances:
-
-# Print instance ID
-    print(instance['InstanceId'])
+# import boto3
+#
+# # Create EC2 client object
+# ec2 = boto3.client('ec2')
+#
+# # Retrieve information about instances
+# response = ec2.describe_instances()
+#
+# # Get the list of instances
+# instances = response['Reservations'][0]['Instances']
+#
+# # Loop over each instance
+# for instance in instances:
+#
+# # Print instance ID
+#     print(instance['InstanceId'])
 
 # ----------------------------------------------------
 # Challenge: Using boto3 with Amazon S3
 # Use Boto3 to print out the names of all of your Amazon S3 buckets.
 import boto3
 
-# Create S3 client object
+# Create an S3 client
 s3 = boto3.client('s3')
 
 # Retrieve information about buckets
 response = s3.list_buckets()
 print(response)
 
-# Loop over each bucket and print its name
-for bucket in response:
-    print(f' {bucket["Name"]}')
+# Output the bucket names
+print('Existing buckets:')
+for bucket in response['Buckets']:
+    print(f'  {bucket["Name"]}')
