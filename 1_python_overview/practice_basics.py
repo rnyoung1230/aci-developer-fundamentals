@@ -1,4 +1,4 @@
-'''# This is a comment
+# This is a comment
 # Copy and paste this code 
 # into your IDE
 
@@ -28,7 +28,7 @@ print("This is print statement 1")
 print("This is print statement 2") #An inline comment
 
 
-print("This is print statement 3")'''
+print("This is print statement 3")
 
 x = 3
 y = "John"
