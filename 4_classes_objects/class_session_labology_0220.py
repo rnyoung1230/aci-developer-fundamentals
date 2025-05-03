@@ -46,7 +46,7 @@ class Artist:
     def __str__(self):
         album_display = ""
 
-        if len(self.albums) > 0:
+        if self.albums:
             for album in self.albums:
                 album_display += ''.join(f'{album.title} (Runtime: {album.runtime} seconds)' + '\n')
 
@@ -78,7 +78,7 @@ class Album:
     def __str__(self):
         track_display = ""
 
-        if len(self.tracks) > 0:
+        if self.tracks:
             for track in self.tracks:
                 track_display += ''.join(str(track) + '\n')
 
@@ -106,33 +106,32 @@ class Track:
                 f'(track_name={self.name!r}, track_number={self.number}, length={self.length})')
 
 ################################# TEST CODE ###########################################
-#
-# artist_1 = Artist("Prince")
-# # print(repr(artist_1))
-# # print(artist_1)
-# # print("-------------------------------------------------\n")
-#
-# album_1 = artist_1.make_album("Purple Rain")
-# # print(artist_1)
-# # print("-------------------------------------------------\n")
-#
-# album_1.add_track("Let's Go Crazy", 1, 280)
-# album_1.add_track("Purple Rain", 9, 521)
-# print("")
-# print(repr(album_1))
-# print(album_1)
-# print("-------------------------------------------------\n")
-#
-# album_2 = artist_1.make_album("Diamonds and Pearls")
-#
-# album_2.add_track("Diamonds and Pearls", 3, 285)
-# album_2.add_track("Cream", 4, 253)
-# print("")
-# print(repr(album_2))
-# print(album_2)
-# print("-------------------------------------------------\n")
-#
+
+artist_1 = Artist("Prince")
 # print(repr(artist_1))
 # print(artist_1)
+# print("-------------------------------------------------\n")
 
-# Lab Task 2:  Bank Account exercise
+album_1 = artist_1.make_album("Purple Rain")
+# print(artist_1)
+# print("-------------------------------------------------\n")
+
+album_1.add_track("Let's Go Crazy", 1, 280)
+album_1.add_track("Purple Rain", 9, 521)
+print("")
+print(repr(album_1))
+print(album_1)
+print("-------------------------------------------------\n")
+
+album_2 = artist_1.make_album("Diamonds and Pearls")
+
+album_2.add_track("Diamonds and Pearls", 3, 285)
+album_2.add_track("Cream", 4, 253)
+print("")
+print(repr(album_2))
+print(album_2)
+print("-------------------------------------------------\n")
+
+print(repr(artist_1))
+print(artist_1)
+
