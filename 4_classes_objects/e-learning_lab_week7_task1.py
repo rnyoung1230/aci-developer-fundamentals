@@ -12,7 +12,7 @@ class Artist:
     def __str__(self):
         artist_info = f"Artist Name: {self.name}\n"
 
-        if len(self.albums) > 0:
+        if self.albums:
             artist_info += f"\nAlbums:\n{'\n'.join(str(album) for album in self.albums)}"
 
         return artist_info

@@ -27,7 +27,7 @@ class Library:
     def __str__(self):
         book_inventory_display = ''
 
-        if len(self.book_inventory) > 0:
+        if self.book_inventory:
             for book in self.book_inventory:
                 book_inventory_display += f"{str(book)}\n"
 
